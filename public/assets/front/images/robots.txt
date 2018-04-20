@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: http://minpedia.com/sitemap.xml
