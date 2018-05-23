@@ -7,7 +7,7 @@ use App\Images;
 use App\Services\MyImage;
 use Illuminate\Http\Request;
 
-class BHeaderImageController extends Controller
+class BProductImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,16 +17,14 @@ class BHeaderImageController extends Controller
     public function index($parent_id) {
         $deflang = config('app.default_locale');
         $article = Article::where('equal_id', $parent_id)->where('lang', $deflang)->firstOrFail();
-        if ($article->link == \Lang::get('route.program',[], $deflang) || $article->link == \Lang::get('route.fasilitas',[], $deflang)) {
-            $headerimages = $article->images()->where('type', 'page-header')->where('lang', $deflang)->get();
+        if ($article->link == \Lang::get('route.product',[], $deflang)) {
+            $productimage = $article->images()->where('type', 'product')->where('lang', $deflang)->get();
         }
 
-        if ($article->link == \Lang::get('route.program',[], $deflang)) {
-            $parentarticle = Article::where('link', \Lang::get('route.program',[], $deflang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $deflang)->firstOrFail();
-        } elseif ($article->link == \Lang::get('route.fasilitas',[], $deflang)) {
-            $parentarticle = Article::where('link', \Lang::get('route.fasilitas',[], $deflang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $deflang)->firstOrFail();
+        if ($article->link == \Lang::get('route.product',[], $deflang)) {
+            $parentarticle = Article::where('link', \Lang::get('route.product',[], $deflang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $deflang)->firstOrFail();
         }
-        return view('admin.webconfig.header-image.index', compact('article', 'headerimages', 'parentarticle', 'deflang'));
+        return view('admin.webconfig.product-image.index', compact('article', 'productimage', 'parentarticle', 'deflang'));
     }
 
     /**
@@ -38,12 +36,10 @@ class BHeaderImageController extends Controller
     {
         $deflang = config('app.default_locale');
         $article = Article::where('equal_id', $parent_id)->where('lang', $deflang)->firstOrFail();
-        if ($article->link == \Lang::get('route.program',[], $deflang)) {
-            $parentarticle = Article::where('link', \Lang::get('route.program',[], $deflang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $deflang)->firstOrFail();
-        } elseif ($article->link == \Lang::get('route.fasilitas',[], $deflang)) {
-            $parentarticle = Article::where('link', \Lang::get('route.fasilitas',[], $deflang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $deflang)->firstOrFail();
+        if ($article->link == \Lang::get('route.product',[], $deflang)) {
+            $parentarticle = Article::where('link', \Lang::get('route.product',[], $deflang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $deflang)->firstOrFail();
         }
-        return view('admin.webconfig.header-image.create', compact('article', 'parentarticle', 'deflang'));
+        return view('admin.webconfig.product-image.create', compact('article', 'parentarticle', 'deflang'));
     }
 
     /**
@@ -72,7 +68,7 @@ class BHeaderImageController extends Controller
             $data = [];
             $data['name'] = $request->{'name_'.$lang};
             $data['article_id'] = ${'article_'.$lang}->id;
-            $data['type'] = 'page-header';
+            $data['type'] = 'product';
             $data['lang'] = $lang;
             $data['equal_id'] = $eqid;
 
@@ -89,7 +85,7 @@ class BHeaderImageController extends Controller
         }
 
         \Session::flash('notification', ['level' => 'success', 'message' => 'Header image of '.${'article_'.$deflang}->title.' saved.']);
-        return redirect()->route('config.headerimage.index', ${'article_'.$deflang}->equal_id);
+        return redirect()->route('config.productimage.index', ${'article_'.$deflang}->equal_id);
     }
 
     /**
@@ -112,14 +108,12 @@ class BHeaderImageController extends Controller
     public function edit($equalid)
     {
         $deflang = config('app.default_locale');
-        $image = Images::where('type', 'page-header')->where('equal_id', $equalid)->get();
+        $image = Images::where('type', 'product')->where('equal_id', $equalid)->get();
         $article = Article::where('id', $image->where('lang', $deflang)->first()->article_id)->where('lang', $deflang)->firstOrFail();
-        if ($article->link == \Lang::get('route.program',[], $deflang)) {
-            $parentarticle = Article::where('link', \Lang::get('route.program',[], $deflang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $deflang)->firstOrFail();
-        } elseif ($article->link == \Lang::get('route.fasilitas',[], $deflang)) {
-            $parentarticle = Article::where('link', \Lang::get('route.fasilitas',[], $deflang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $deflang)->firstOrFail();
+        if ($article->link == \Lang::get('route.product',[], $deflang)) {
+            $parentarticle = Article::where('link', \Lang::get('route.product',[], $deflang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $deflang)->firstOrFail();
         }
-        return view('admin.webconfig.header-image.edit', compact('article', 'image', 'parentarticle', 'deflang'));
+        return view('admin.webconfig.product-image.edit', compact('article', 'image', 'parentarticle', 'deflang'));
     }
 
     /**
@@ -131,7 +125,7 @@ class BHeaderImageController extends Controller
      */
     public function update(Request $request, $equalid)
     {
-        $images = Images::where('type', 'page-header')->where('equal_id', $equalid)->get();
+        $images = Images::where('type', 'product')->where('equal_id', $equalid)->get();
         $alllangs = config('app.all_langs');
         $deflang = config('app.default_locale');
 
@@ -164,7 +158,7 @@ class BHeaderImageController extends Controller
         }
 
         \Session::flash('notification', ['level' => 'success', 'message' => 'Image  '.${'image_'.$deflang}->name. ' updated.']);
-        return redirect()->route('config.headerimage.index', ${'image_'.$deflang}->article->equal_id);
+        return redirect()->route('config.productimage.index', ${'image_'.$deflang}->article->equal_id);
     }
 
     /**
@@ -188,6 +182,6 @@ class BHeaderImageController extends Controller
 
         Images::where('equal_id', $equalid)->delete();
         \Session::flash('notification', ['level' => 'success', 'message' => 'Header image deleted.']);
-        return redirect()->route('config.headerimage.index', $articleid);
+        return redirect()->route('config.productimage.index', $articleid);
     }
 }

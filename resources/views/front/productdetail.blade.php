@@ -7,9 +7,9 @@
     <link href="{{ asset('assets/front/css/product-details-1.css') }}" rel="stylesheet">
 @endsection
 @section('page-head-seo')
-    <meta name="description" content="{{ $fasilitas->meta_title }}">
-    <meta name="keywords" content="{{ $fasilitas->meta_keyword }}">
-    <title>{{ $fasilitas->meta_title }} - Bali Tourism College</title>
+    <meta name="description" content="{{ $product->meta_title }}">
+    <meta name="keywords" content="{{ $product->meta_keyword }}">
+    <title>{{ $product->meta_title }} - O-Remedy</title>
 @endsection
 
 @section('conten')
@@ -21,28 +21,28 @@
                     <!-- bootstrap carousel -->
                     <div class="wrapper">
                         <div id="carousel-product" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
+                            <!-- Indicators -->                            
                             <ol class="carousel-indicators">
                                 <?php $no = 0; ?>
-                                    @foreach($galleryproduct as $gp)
-                                <li data-target="#carousel-product" data-slide-to="0" class="active">
-                                    <img src="{{ asset('assets/front/images/'.$gp->image) }}" alt="themesnerd" class="img-responsive">
+                                @foreach($slideimage as $si)
+                                <li data-target="#carousel-product" data-slide-to="0" class="{{ $no == 0 ? 'active' : '' }}">
+                                    <img src="{{ asset('assets/front/images/'.$si->image) }}" alt="themesnerd" class="img-responsive">
                                 </li>
                                 <?php $no++; ?>
-                                @endforeach
+                                @endforeach                               
                             </ol>
                             <!-- /Indicators -->
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
-                                <!-- Carousel 1 -->
+                                <!-- Carousel -->
                                 <?php $no = 0; ?>
-                                    @foreach($galleryproduct as $gp)
+                                @foreach($slideimage as $si)
                                 <div class="item {{ $no == 0 ? 'active' : '' }}">
-                                    <img src="{{ asset('assets/front/images/'.$gp->image) }}" alt="themesnerd" class="img-responsive">
+                                    <img src="{{ asset('assets/front/images/'.$si->image) }}" alt="themesnerd" class="img-responsive">
                                 </div>
                                 <?php $no++; ?>
                                 @endforeach
-                                <!-- /Carousel 1 -->
+                                <!-- /Carousel -->                                
                             </div>
                             <!-- /Wrapper for slides -->
                             <!-- Controls -->
@@ -62,9 +62,9 @@
                 <!-- Product Details -->
                 <div class="col-md-6 col-sm-12">
                     <div class="product-content">
-                        <a href="#"><span class="product-tag trending">Face</span></a>
-                        <h3 class="product-title">{{ $fasilitas->title }}</h3>
-                        <h3 class="product-price">{{ $fasilitas->price }}</h3>
+                        <a href="#"><span class="product-tag trending">{{ $datailcategory->category }}</span></a>
+                        <h3 class="product-title">{{ $product->title }}</h3>
+                        <h3 class="product-price">{{ $product->price }}</h3>
 
                         <hr> <!-- Button Link ke Online store -->
                         <h3>Buy Now!</h3>
@@ -73,7 +73,7 @@
                         <hr> <!-- Button Link ke Online store -->
 
                         <div class="product-description">
-                            {!! $fasilitas->conten !!}
+                            {!! $product->conten !!}
                         </div>
                     </div>
                 </div>
@@ -90,16 +90,15 @@
                     <h2 class="section-heading">{{ \Lang::get('front.produk-terkait',[], \App::getLocale()) }}</h2>
                 </div>
                 <div class="col-sm-4 col-xs-2 text-right">
-                    <a href="product-1.html" class="btn btn-ghost hidden-xs">Explore All  <i class="fa fa-chevron-right"></i></a>
-                    <a href="product-1.html" class="btn btn-ghost btn-icon-only visible-xs-block"><i class="fa fa-chevron-right"></i></a>
+                    <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$product->link)) }}" class="btn btn-ghost hidden-xs">{{ \Lang::get('front.explore-all',[], \App::getLocale()) }}<i class="fa fa-chevron-right"></i></a>
                 </div>
             </div>
             <div class="row">
                 <!-- Product 1 -->
-                @foreach($fasilitaslainnya as $fl)
+                @foreach($productlainnya as $fl)
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <figure class="wow fadeIn">
-                        <img class="{{ asset('assets/front/images/'.$fl->thumb_image) }}" alt="themesnerd">
+                        <img src="{{ asset('assets/front/images/'.$fl->thumb_image) }}" alt="themesnerd">
                         <figcaption>
                             <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$fl->link.'/'.$fl->slug)) }}">
                                 <p class="product-title">{{ $fl->title }}</p>

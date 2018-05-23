@@ -59,9 +59,3 @@
         <span class="title">Contact Messages</span>
     </a>
 </li>
-<li class="nav-item @if(\Request::segment(1) == 'admin' && \Request::segment(2) == 'data-registrasi') active open @endif">
-    <a href="{{ route('data-registrasi.index') }}" class="nav-link">
-        <i class="icon-docs"></i>
-        <span class="title">Data Registrasi</span>
-    </a>
-</li>

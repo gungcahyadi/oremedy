@@ -25,28 +25,32 @@
         </div>
     </header>
     <!--Text Banner ends-->
-
+    <?php
+        $lc = $onpage->where('slug', \Lang::get('front.p-latest',[], \App::getLocale()))->first();
+        $vc = $onpage->where('slug', \Lang::get('front.p-vintage',[], \App::getLocale()))->first();
+        $ep = $onpage->where('slug', \Lang::get('front.p-explore',[], \App::getLocale()))->first();
+        ?>
     <!-- promotions -->
     <section id="promotions">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-xs-12">
                     <figure class="wow fadeIn">
-                        <img class="img-responsive" src="{{ asset('assets/front/img/hero-8.jpg') }}">
+                        <img class="img-responsive" src="{{ asset('assets/front/images/'.$lc->thumb_image) }}">
                         <figcaption class="content">
-                            <h3 class="section-heading">Latest Collections</h3>
-                            <p>Latest Interior Design Products</p>
-                            <a href="product.php" class="btn btn-outline">Explore  <i class="fa fa-chevron-right"></i></a>
+                            <h3 class="section-heading">{{ $lc->title }}</h3>
+                            <p>{{ $lc->conten }}</p>
+                            <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$lc->link)) }}" class="btn btn-outline">Explore  <i class="fa fa-chevron-right"></i></a>
                         </figcaption>
                     </figure>
                 </div>
                 <div class="col-sm-6 col-xs-12">
                     <figure class="wow fadeIn">
-                        <img class="img-responsive" src="{{ asset('assets/front/img/hero-2.jpg') }}">
+                        <img class="img-responsive" src="{{ asset('assets/front/images/'.$vc->thumb_image) }}">
                         <figcaption class="content">
-                            <h3 class="section-heading">Vintage Collections</h3>
-                            <p>Finest Interior Design Products</p>
-                            <a href="product.php" class="btn btn-outline">Explore  <i class="fa fa-chevron-right"></i></a>
+                            <h3 class="section-heading">{{ $vc->title }}</h3>
+                            <p>{{ $vc->conten }}</p>
+                            <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$vc->link)) }}" class="btn btn-outline">Explore  <i class="fa fa-chevron-right"></i></a>
                         </figcaption>
                     </figure>
                 </div>
@@ -59,16 +63,18 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 section-heading-wrap text-center">
-                    <h2 class="section-heading">Our Herbal Product</h2>
-                    <h4 class="section-subheading">Find and know abour our best product</h4>
+                    <h2 class="section-heading">{{ \Lang::get('front.judul-produk',[], \App::getLocale()) }}</h2>
+                    <h4 class="section-subheading">{{ \Lang::get('front.sub-produk',[], \App::getLocale()) }}</h4>
                 </div>
             </div>
             <div class="row">
                 <!-- Product 1 -->
-                @foreach($allfasilitas as $fcl)
+                @foreach($allproduct as $fcl)
                 <div class="col-md-3 col-sm-6 col-xs-12 no-padding">
                     <figure class="wow fadeIn">
+                        <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$fcl->link.'/'.$fcl->slug)) }}">
                         <img class="img-responsive" src="{{ asset('assets/front/images/'.$fcl->thumb_image) }}" alt="themesnerd">
+                        </a>
                         <figcaption>
                             <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$fcl->link.'/'.$fcl->slug)) }}">
                                 <h5 class="product-title">{{ $fcl->title }}</h5>
@@ -85,13 +91,13 @@
     </section>
     <!-- /Products -->
     <!-- cta-2 -->
-    <section id="cta-2">
+    <section id="cta-2" style="background-image: url('{{ asset('assets/front/images/'.$ep->thumb_image) }}');">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center">
-                    <h2 class="section-heading">Explore All of Our Product</h2>
-                    <h4 class="section-subheading">Your best skin care product</h4>
-                    <a href="produc.php" class="btn">Show More  <i class="fa fa-chevron-right"></i></a>
+                    <h2 class="section-heading">{{ $ep->title }}</h2>
+                    <h4 class="section-subheading">{{ $ep->conten }}</h4>
+                    <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$ep->link)) }}" class="btn">Show More  <i class="fa fa-chevron-right"></i></a>
                 </div>
             </div>
         </div>
@@ -110,7 +116,7 @@
                     <div class="section-content">
                         <h2 class="section-heading">{{ $about->title }}</h2>
                         <p>{!! $about->short_description !!}</p>
-                        <a href="about.php" class="btn btn-outline">Learn More <i class="fa fa-chevron-right"></i></a>
+                        <a href="{{ url('/'.config('app.locale_prefix')).'/'.$about->link }}" class="btn btn-outline">Learn More <i class="fa fa-chevron-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -130,35 +136,40 @@
                 </div>
                 <div class="col-md-6 col-sm-12 no-padding">
                     <div class="section-content">
-                        <h2 class="section-heading">Why Choose Us</h2>
-                        <h4 class="section-subheading">Home to the Finest Interior Design Products in the World</h4>
-
+                        <h2 class="section-heading">{{ $whychoose->title }}</h2>
+                        <h4 class="section-subheading">{{ $whychoose->conten }}</h4>
+                        <?php
+                        $mi = $contenwhychoose->where('slug', \Lang::get('front.mi-choose',[], \App::getLocale()))->first();
+                        $hf = $contenwhychoose->where('slug', \Lang::get('front.hf-choose',[], \App::getLocale()))->first();
+                        $ci = $contenwhychoose->where('slug', \Lang::get('front.ci-choose',[], \App::getLocale()))->first();
+                        $co = $contenwhychoose->where('slug', \Lang::get('front.co-choose',[], \App::getLocale()))->first();
+                        ?>
                         <div class="col-md-6 col-sm-12 no-padding">
                             <div class="col-sm-12 service-content">
                                 <div class="feature-icon"><i class="fa fa-compass"></i>
                                 </div>
-                                <h4>Modern Interiors</h4>
-                                <p>Discover thousands of products from the finest brands</p>
+                                <h4>{{ $mi->title }}</h4>
+                                <p>{{ $mi->conten }}</p>
                             </div>
                             <div class="col-sm-12 service-content">
                                 <div class="feature-icon"><i class="fa fa-anchor"></i>
                                 </div>
-                                <h4>Handmade Furniture</h4>
-                                <p>Beautifully crafted with care & love only for you</p>
+                                <h4>{{ $hf->title }}</h4>
+                                <p>{{ $hf->conten }}</p>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 no-padding">
                             <div class="col-sm-12 service-content">
                                 <div class="feature-icon"><i class="fa fa-bolt"></i>
                                 </div>
-                                <h4>Classic Interiors</h4>
-                                <p>Discover thousands of products from the finest brands</p>
+                                <h4>{{ $ci->title }}</h4>
+                                <p>{{ $ci->conten }}</p>
                             </div>
                             <div class="col-sm-12 service-content">
                                 <div class="feature-icon"><i class="fa fa-coffee"></i>
                                 </div>
-                                <h4>Consultancy</h4>
-                                <p>Beautifully crafted with care & love only for you</p>
+                                <h4>{{ $co->title }}</h4>
+                                <p>{{ $co->conten }}</p>
                             </div>
                         </div>
                     </div>
@@ -169,14 +180,14 @@
     <!-- /feature Section 2 -->
 
     <!-- Call to Action -->
-    <section id="cta-1">
+    <section id="cta-1" style="background-image: url('{{ asset('assets/front/images/'.$contact->thumb_image) }}');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-8 col-sm-12">
                     <div class="header-text">
-                        <h2 class="header-heading">Get in Touch</h2>
-                        <p>We are always here to hear from you.</p>
-                        <a href="contact-us.php" class="btn btn-outline btn-lg">Contact Us  <i class="fa fa-chevron-right"></i></a>
+                        <h2 class="header-heading">{{ \Lang::get('front.con-title',[], \App::getLocale()) }}</h2>
+                        <p>{{ \Lang::get('front.con-subtitle',[], \App::getLocale()) }}</p>
+                        <a href="{{ url('/'.config('app.locale_prefix')).'/'.$contact->link }}" class="btn btn-outline btn-lg">Contact Us  <i class="fa fa-chevron-right"></i></a>
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@ use App\Article;
 use App\Category;
 use Illuminate\Http\Request;
 
-class BAktivitasCatController extends Controller
+class BProductCatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,8 +25,8 @@ class BAktivitasCatController extends Controller
      */
     public function create()
     {
-        $article = Article::where('link', \Lang::get('route.aktivitas',[], config('app.default_locale')))->where('position', 'menu-utama')->where('published', '1')->where('lang', config('app.default_locale'))->firstOrFail();
-        return view('admin.webconfig.cataktivitas.create', compact('article'));
+        $article = Article::where('link', \Lang::get('route.product',[], config('app.default_locale')))->where('position', 'menu-utama')->where('published', '1')->where('lang', config('app.default_locale'))->firstOrFail();
+        return view('admin.webconfig.catproduct.create', compact('article'));
     }
 
     /**
@@ -52,13 +52,13 @@ class BAktivitasCatController extends Controller
         foreach ($alllangs as $lang) {
             $data = [];
             $data['category'] = $request->{'category_'.$lang};
-            $data['type'] = 'aktivitas';
+            $data['type'] = 'product';
             $data['lang'] = $lang;
             $data['equal_id'] = $eqid;
             ${'category_'.$lang} = Category::create($data);
         }
         \Session::flash('notification', ['level' => 'success', 'message' => 'Category '.${'category_'.config('app.default_locale')}->category. ' saved.']);
-        return redirect()->route('config.aktivitas.index');
+        return redirect()->route('config.product.index');
     }
 
     /**
@@ -80,9 +80,9 @@ class BAktivitasCatController extends Controller
      */
     public function edit($equalid)
     {
-        $article = Article::where('link', \Lang::get('route.aktivitas',[], config('app.default_locale')))->where('position', 'menu-utama')->where('published', '1')->where('lang', config('app.default_locale'))->firstOrFail();
-        $category = Category::where('type', 'aktivitas')->where('equal_id', $equalid)->get();
-        return view('admin.webconfig.cataktivitas.edit', compact('article', 'category'));
+        $article = Article::where('link', \Lang::get('route.product',[], config('app.default_locale')))->where('position', 'menu-utama')->where('published', '1')->where('lang', config('app.default_locale'))->firstOrFail();
+        $category = Category::where('type', 'product')->where('equal_id', $equalid)->get();
+        return view('admin.webconfig.catproduct.edit', compact('article', 'category'));
     }
 
     /**
@@ -94,7 +94,7 @@ class BAktivitasCatController extends Controller
      */
     public function update(Request $request, $equalid)
     {
-        $categories = Category::where('type', 'aktivitas')->where('equal_id', $equalid)->get();
+        $categories = Category::where('type', 'product')->where('equal_id', $equalid)->get();
         $alllangs = config('app.all_langs');
 
         $rowRules = [];
@@ -112,7 +112,7 @@ class BAktivitasCatController extends Controller
             $categories->where('lang', $lang)->first()->update($data);
         }
         \Session::flash('notification', ['level' => 'success', 'message' => 'Category '.$categories->where('lang', config('app.default_locale'))->first()->category. ' updated.']);
-        return redirect()->route('config.aktivitas.index');
+        return redirect()->route('config.product.index');
     }
 
     /**
@@ -123,8 +123,8 @@ class BAktivitasCatController extends Controller
      */
     public function destroy($equalid)
     {
-        Category::where('type', 'aktivitas')->where('equal_id', $equalid)->delete();
+        Category::where('type', 'product')->where('equal_id', $equalid)->delete();
         \Session::flash('notification', ['level' => 'success', 'message' => 'Category deleted.']);
-        return redirect()->route('config.aktivitas.index');
+        return redirect()->route('config.product.index');
     }
 }

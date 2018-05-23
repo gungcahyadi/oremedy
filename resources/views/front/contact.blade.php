@@ -64,16 +64,30 @@
     <section id="location">
         <div class="container">
             <div class="row">
-                @foreach($office as $ofc)
+                <?php
+                    $dhaka = $contactonpage->where('slug', \Lang::get('front.ct-dha',[], \App::getLocale()))->first();
+                    $austrilia = $contactonpage->where('slug', \Lang::get('front.ct-aus',[], \App::getLocale()))->first();
+                    $england = $contactonpage->where('slug', \Lang::get('front.ct-eng',[], \App::getLocale()))->first();
+                    ?>
                 <div class="col-md-4 col-sm-6 col-sm-12">
                     <div class="location-content">
-                        <h4 class="location-title">{{ $ofc->title }}</h4>
-                        <p>
-                            {{ $ofc->conten }}
-                        </p>
+                        <h4 class="location-title">{{ $dhaka->title }}</h4>
+                        {!! $dhaka->conten !!}
                     </div>
                 </div>
-                @endforeach
+                <div class="col-md-4 col-sm-6 col-sm-12">
+                    <div class="location-content">
+                        <h4 class="location-title">{{ $austrilia->title }}</h4>
+                        {!! $austrilia->conten !!}
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-sm-12">
+                    <div class="location-content">
+                        <h4 class="location-title">{{ $england->title }}</h4>
+                        {!! $england->conten !!}
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

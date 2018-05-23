@@ -106,6 +106,60 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
+                        <span class="caption-subject bold uppercase"> Manage Category</span>
+                    </div>
+
+                </div>
+                <div class="portlet-body">
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="btn-group">
+                                    <a href="{{ route('config.catproduct.create') }}">
+                                        <button id="sample_editable_1_new" class="btn sbold green"> Add New
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-hover table-bordered" id="sample_editable_2">
+                        <thead>
+                        <tr>
+                            <td>Category</td>
+                            <td class="text-center col-md-2">#</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($categories as $category)
+                            <tr>
+                                <td>{{ $category->category }}</td>
+                                <td class="text-center col-md-2 col-sm-3">
+                                    {!! Form::model($category, ['route' => ['config.catproduct.destroy', $category->equal_id], 'method' => 'delete', 'class' => 'form-inline'] ) !!}
+                                    <span class="tooltips" data-original-title="Edit">
+                                            <a href="{{ route('config.catproduct.edit', $category->equal_id)}}" class="btn btn-icon-only blue"><i class="fa fa-edit"></i></a>
+                                    </span>
+                                    <span class="tooltips" data-original-title="Delete">
+                                        {!! Form::button('<i class="fa fa-times"></i>', ['type' => 'submit', 'class'=>'btn btn btn-danger js-submit-confirm']) !!}
+                                    </span>
+                                    {!! Form::close()!!}
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-dark">
                         <span class="caption-subject bold uppercase"> {{ $article->title }}</span>
                     </div>
 
@@ -152,7 +206,7 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="tooltips" data-original-title="Manage Header Image">
-                                        <a href="{{ route('config.headerimage.index', $af->equal_id) }}" class="btn btn-icon-only purple-wisteria"><i class="fa fa-image"></i></a>
+                                        <a href="{{ route('config.productimage.index', $af->equal_id) }}" class="btn btn-icon-only purple-wisteria"><i class="fa fa-image"></i></a>
                                     </span>
                                 </td>
                             </tr>

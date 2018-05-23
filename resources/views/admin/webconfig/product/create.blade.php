@@ -86,6 +86,20 @@
                                                 {!! $errors->first('title_'.$lang, '<p class="help-block">:message</p>') !!}
                                             </div>
                                         </div>
+                                        <div class="form-group {!! $errors->has('price_'.$lang) ? 'has-error' : '' !!}">
+                                            {!! Form::label('price_'.$lang, 'Price', ['class' => 'control-label col-md-2']) !!}
+                                            <div class="col-md-10">
+                                                {!! Form::text('price_'.$lang, null, ['class'=>'form-control', 'required']) !!}
+                                                {!! $errors->first('price_'.$lang, '<p class="help-block">:message</p>') !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group {!! $errors->has('categories'.$lang) ? 'has-error' : '' !!}">
+                                            {!! Form::label('categories'.$lang, 'Categories', ['class' => 'control-label col-md-2']) !!}
+                                            <div class="col-md-10">
+                                                {!! Form::select('categories[]', []+App\Category::where('type', 'product')->where('lang', config('app.default_locale'))->pluck('category','id')->all(), null, ['class'=>'form-control select2-multiple', 'required', 'id' => 'select2-categories']) !!}
+                                                {!! $errors->first('categories_'.$lang, '<p class="help-block">:message</p>') !!}
+                                            </div>
+                                        </div>
                                         <div class="form-group {!! $errors->has('short_description_'.$lang) ? 'has-error' : '' !!}">
                                             {!! Form::label('short_description_'.$lang, 'Short Description', ['class' => 'control-label col-md-2']) !!}
                                             <div class="col-md-10">
@@ -99,14 +113,7 @@
                                                 {!! Form::textarea('conten_'.$lang, null, ['class'=>'form-control editor-textarea', 'required']) !!}
                                                 {!! $errors->first('conten_'.$lang, '<p class="help-block">:message</p>') !!}
                                             </div>
-                                        </div>
-                                        <div class="form-group {!! $errors->has('price_'.$lang) ? 'has-error' : '' !!}">
-                                            {!! Form::label('price_'.$lang, 'Conten', ['class' => 'control-label col-md-2']) !!}
-                                            <div class="col-md-10">
-                                                {!! Form::number('price_'.$lang, null, ['class'=>'form-control', 'required']) !!}
-                                                {!! $errors->first('price_'.$lang, '<p class="help-block">:message</p>') !!}
-                                            </div>
-                                        </div>
+                                        </div>                                        
                                         @if($lang == config('app.default_locale'))
                                             <div class="form-group {!! $errors->has('thumb_image') ? 'has-error' : '' !!}">
                                                 {!! Form::label('thumb_image', 'Thumbnail Image (jpeg, png)', ['class' => 'control-label col-md-2']) !!}

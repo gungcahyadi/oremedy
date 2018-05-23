@@ -13,9 +13,11 @@ class FIndexController extends Controller
         $home = Article::where('link', '/')->where('position', 'menu-utama')->where('published', '1')->where('lang', $lang)->firstOrFail();
         $homeslider = Images::where('type', 'home-slider')->where('lang', $lang)->get();
         $about = Article::where('link', \Lang::get('route.about',[], $lang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $lang)->firstOrFail();
-        $allfasilitas = Article::where('position', 'fasilitas')->where('published', '1')->where('lang', $lang)->orderBy('updated_at', 'desc')->limit(4)->get();
-        $program = Article::where('link', \Lang::get('route.program',[], $lang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $lang)->firstOrFail();
-        $allprogram = $program->childs()->where('position', 'program')->where('published', '1')->where('lang', $lang)->get();
+        $whychoose = Article::where('position', 'why-choose')->where('published', '1')->where('lang', $lang)->first();
+        $contenwhychoose = $whychoose->childs()->where('position', 'page')->where('published', '1')->where('lang', $lang)->limit(4)->get();
+        $contact = Article::where('link', \Lang::get('route.contact',[], $lang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $lang)->firstOrFail();
+        $allproduct = Article::where('position', 'product')->where('published', '1')->where('lang', $lang)->orderBy('updated_at', 'desc')->limit(4)->get();
+        $onpage = Article::where('position', 'page')->where('lang', $lang)->first();
         $alt_langs = array_diff(config('app.all_langs'), array($lang));
         $altlink = [];
         foreach ($alt_langs as $altlang) {
@@ -28,6 +30,6 @@ class FIndexController extends Controller
             }
         }
         $altlink = json_encode($altlink);
-        return view('front.index', compact('home', 'altlink', 'homeslider', 'allfasilitas', 'about', 'program', 'allprogram'));
+        return view('front.index', compact('home', 'altlink', 'homeslider', 'allproduct','onpage', 'about', 'whychoose','contenwhychoose','contact','contactimage', 'program', 'allprogram'));
     }
 }

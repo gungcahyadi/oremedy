@@ -2,9 +2,6 @@
 
 return [
     'about' => 'about-us',
-    'pendaftaran' => 'registration',
-    'program' => 'program',
-    'fasilitas' => 'facilities',
-    'aktivitas' => 'activities',
+    'product' => 'product',
     'contact' => 'contact-us',
 ];

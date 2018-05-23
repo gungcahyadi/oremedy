@@ -2,9 +2,6 @@
 
 return [
     'about' => 'tentang-kami',
-    'pendaftaran' => 'pendaftaran',
-    'program' => 'program',
-    'fasilitas' => 'fasilitas',
-    'aktivitas' => 'aktivitas',
+    'product' => 'produk',
     'contact' => 'hubungi-kami',
 ];

@@ -84,19 +84,23 @@
     <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
-                <span>Web Configuration</span>
-                <i class="fa fa-circle"></i>
-            </li>
-            <li>
                 <a href="{{ route('menu-utama.index') }}"><span>Manage Main Menu</span></a>
                 <i class="fa fa-circle"></i>
             </li>
+            @if($article->link == \Lang::get('route.product',[], $deflang))
+                <li>
+                    <a href="{{ route('config.product.index') }}"><span>{{ $parentarticle->title }}</span></a>
+                    <i class="fa fa-circle"></i>
+                </li>
+            @endif
             <li>
-                <span>{{ $article->title }}</span>
+                <span>{{ 'Product Image of '.$article->title }}</span>
             </li>
         </ul>
     </div>
-    <h3 class="page-title"> {{ $article->title }}</h3>
+    <h3 class="page-title">
+        Manage Product Images
+    </h3>
 @endsection
 
 @section('conten')
@@ -106,7 +110,7 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
-                        <span class="caption-subject bold uppercase"> {{ $article->title }}</span>
+                        <span class="caption-subject bold uppercase">{{ 'Product Image of '.$article->title }}</span>
                     </div>
 
                 </div>
@@ -115,7 +119,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="btn-group">
-                                    <a href="{{ route('config.fasilitas.create') }}">
+                                    <a href="{{ route('config.productimage.create', $article->equal_id) }}">
                                         <button id="sample_editable_1_new" class="btn sbold green"> Add New
                                             <i class="fa fa-plus"></i>
                                         </button>
@@ -127,33 +131,29 @@
                     <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                         <thead>
                         <tr>
-                            <td>Name</td>
-                            <td class="col-md-5">Short Description</td>
-                            <td class="col-md-1">Published</td>
+                            <td class="col-md-3">Name</td>
+                            <td>Image</td>
                             <td class="text-center col-md-2">#</td>
-                            <td class="text-center col-md-1">#</td>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($allfasilitas as $af)
+                        @foreach($productimage as $pi)
                             <tr>
-                                <td>{{ $af->title }}</td>
-                                <td>{!! $af->short_description !!}</td>
-                                <td class="text-center">@if($af->published == '1') Yes @else No @endif</td>
+                                <td>{{ $pi->name }}</td>
+                                <td>
+                                    <div class="thumbnail">
+                                        <img src="{{ asset('assets/front/images/'.$pi->image) }}" alt="{{ $pi->name }}">
+                                    </div>
+                                </td>
                                 <td class="text-center col-md-2 col-sm-3">
-                                    {!! Form::model($af, ['route' => ['config.fasilitas.destroy', $af->equal_id], 'method' => 'delete', 'class' => 'form-inline'] ) !!}
+                                    {!! Form::model($pi, ['route' => ['config.productimage.destroy', $pi->equal_id], 'method' => 'delete', 'class' => 'form-inline'] ) !!}
                                     <span class="tooltips" data-original-title="Edit">
-                                            <a href="{{ route('config.fasilitas.edit', $af->equal_id)}}" class="btn btn-icon-only blue"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ route('config.productimage.edit', $pi->equal_id)}}" class="btn btn-icon-only blue"><i class="fa fa-edit"></i></a>
                                     </span>
                                     <span class="tooltips" data-original-title="Delete">
                                         {!! Form::button('<i class="fa fa-times"></i>', ['type' => 'submit', 'class'=>'btn btn btn-danger js-submit-confirm']) !!}
                                     </span>
                                     {!! Form::close()!!}
-                                </td>
-                                <td class="text-center">
-                                    <span class="tooltips" data-original-title="Manage Header Image">
-                                        <a href="{{ route('config.headerimage.index', $af->equal_id) }}" class="btn btn-icon-only purple-wisteria"><i class="fa fa-image"></i></a>
-                                    </span>
                                 </td>
                             </tr>
                         @endforeach

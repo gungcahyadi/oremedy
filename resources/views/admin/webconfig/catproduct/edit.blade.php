@@ -8,7 +8,7 @@
                 <i class="fa fa-circle"></i>
             </li>
             <li>
-                <a href="{{ route('config.fasilitas.index') }}"><span>{{ $article->title }}</span></a>
+                <a href="{{ route('config.product.index') }}"><span>{{ $article->title }}</span></a>
                 <i class="fa fa-circle"></i>
             </li>
             <li>
@@ -31,8 +31,8 @@
 
                 </div>
                 <div class="portlet-body">
-                    {!! Form::model($category, ['route' => ['config.catfasilitas.update', $category->first()->equal_id],'method' =>'patch'])!!}
-                    @include('admin.webconfig.catfasilitas._form', ['model' => $category])
+                    {!! Form::model($category, ['route' => ['config.catproduct.update', $category->first()->equal_id],'method' =>'patch'])!!}
+                    @include('admin.webconfig.catproduct._form', ['model' => $category])
                     {!! Form::close() !!}
                 </div>
             </div>

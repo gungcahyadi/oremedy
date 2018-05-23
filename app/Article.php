@@ -8,7 +8,7 @@ class Article extends Model
 {
     protected $table = 'article';
     protected $fillable = [
-        'title', 'thumb_image', 'short_description', 'conten', 'additional_conten', 'meta_title', 'meta_keyword', 'meta_description', 'position', 'published', 'slug', 'parent_id', 'longitude', 'latitude', 'link', 'more_config', 'admin_config', 'lang', 'equal_id'
+        'title', 'price', 'thumb_image', 'short_description', 'conten', 'additional_conten', 'meta_title', 'meta_keyword', 'meta_description', 'position', 'published', 'slug', 'parent_id', 'longitude', 'latitude', 'link', 'more_config', 'admin_config', 'lang', 'equal_id'
     ];
 
     public function childs()

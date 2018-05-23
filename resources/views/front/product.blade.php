@@ -4,9 +4,9 @@
     <script src="{{ asset('assets/front/js/products.js') }}"></script>
 @endsection
 @section('page-head-seo')
-    <meta name="description" content="{{ $fasilitas->meta_description }}">
-    <meta name="keywords" content="{{ $fasilitas->meta_keyword }}">
-    <title>{{ $fasilitas->meta_title }} - O-Remedy</title>
+    <meta name="description" content="{{ $product->meta_description }}">
+    <meta name="keywords" content="{{ $product->meta_keyword }}">
+    <title>{{ $product->meta_title }} - O-Remedy</title>
 @endsection
 @section('custom-css')
     <link href="{{ asset('assets/front/css/product-1.css') }}" rel="stylesheet">
@@ -17,7 +17,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <h2 class="header-title">{{ $fasilitas->title }}</h2>
+                    <h2 class="header-title">{{ $product->title }}</h2>
                 </div>
             </div>
         </div>
@@ -36,8 +36,8 @@
                 <div id="product-item">
                     <!-- Product  -->
                     <?php $no = 1; ?>
-                    @foreach($allfasilitas as $fc)
-                    <div class="col-md-4 col-sm-6 col-xs-12 mix @foreach($fc->categories()->where('type', 'fasilitas')->get() as $fcct) {{ $fcct->slug.' ' }} @endforeach" data-my-order="{{ $no }}">
+                    @foreach($allproduct as $fc)
+                    <div class="col-md-4 col-sm-6 col-xs-12 mix @foreach($fc->categories()->where('type', 'product')->get() as $fcct) {{ $fcct->slug.' ' }} @endforeach" data-my-order="{{ $no }}">
                         <figure class="wow fadeIn">
                             <img class="img-responsive" src="{{ asset('assets/front/images/'.$fc->thumb_image) }}" alt="{{ $fc->title }}">
                             <figcaption>
@@ -55,7 +55,7 @@
             </div>
             <!-- Pagination -->
             <div class="row">
-                {{ $allfasilitas->links() }}
+                {{ $allproduct->links() }}
             </div>
             <!-- /Pagination -->
         </div>

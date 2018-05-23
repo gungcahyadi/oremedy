@@ -67,11 +67,11 @@
             <div class="collapse navbar-collapse" id="main-menu">
                 <ul class="nav navbar-nav navbar-right">
                     @foreach($mutama as $mu)
-                        @if($mu->link == \Lang::get('route.fasilitas',[], \App::getLocale()))
+                        @if($mu->link == \Lang::get('route.product',[], \App::getLocale()))
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ $mu->title }}<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$mu->link)) }}">All {!! $mu->title !!}</a></li>
+                                    <li><a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$mu->link)) }}">{{ \Lang::get('front.allproduct',[], \App::getLocale()) }}</a></li>
                                     @foreach($mu->childs()->where('published', '1')->get() as $child)
                                         <li><a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$child->   link.'/'.$child->slug)) }}">{{ $child->title }}</a></li>
                                     @endforeach
@@ -111,11 +111,6 @@
                     <?php $footerabout = $footerconten->where('position', 'footer-about')->first(); ?>
                     <h4 class="link-title">{{ $footerabout->title }}</h4>
                     <p>{{ $footerabout->conten }}</p>
-                    <form id="newsletter-signup" action="#" method="post">
-                        <input class="form-control" type="text" id="email" name="subscribe-input" required="" maxlength="50" placeholder="email address">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane"></i>
-                        </button>
-                    </form>
                 </div>
 
                 <div class="col-md-5 col-sm-12 footer-links">

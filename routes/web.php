@@ -26,10 +26,9 @@ $all_langs = config('app.all_langs');
 foreach($all_langs as $prefix){
     Route::group(['prefix' => $prefix, 'middleware' => 'configcookieslang'], function() use ($prefix) {
         Route::get('/', 'FIndexController@index');
-        Route::get(\Lang::get('route.fasilitas',[], $prefix), 'FFasilitasController@index')->name('front.fasilitas.index');
-        Route::get(\Lang::get('route.fasilitas',[], $prefix).'/{slug}', 'FFasilitasController@detail')->name('front.fasilitas.detail');
+        Route::get(\Lang::get('route.product',[], $prefix), 'FProductController@index')->name('front.product.index');
+        Route::get(\Lang::get('route.product',[], $prefix).'/{slug}', 'FProductController@detail')->name('front.product.detail');
         Route::get(\Lang::get('route.about',[], $prefix), 'FAboutController@index')->name('front.about');
-        Route::get(\Lang::get('route.aktivitas',[], $prefix), 'FAktivitasController@index')->name('front.aktivitas.index');
         Route::get(\Lang::get('route.contact',[], $prefix), 'FContactController@index')->name('front.contact.index');
         Route::post(\Lang::get('route.contact',[], $prefix), 'FContactController@store')->name('front.contact.store');
     });
@@ -61,32 +60,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::patch('config/homeslider/{id}',['as' => 'config.homeslider.update', 'uses' => 'BHomeSliderController@update']);
     Route::delete('config/homeslider/{id}',['as' => 'config.homeslider.destroy', 'uses' => 'BHomeSliderController@destroy']);
 
-    Route::get('config/fasilitas',['as' => 'config.fasilitas.index', 'uses' => 'BFasilitasController@index']);
-    Route::get('config/fasilitas/create',['as' => 'config.fasilitas.create', 'uses' => 'BFasilitasController@create']);
-    Route::post('config/fasilitas',['as' => 'config.fasilitas.store', 'uses' => 'BFasilitasController@store']);
-    Route::get('config/fasilitas/{id}',['as' => 'config.fasilitas.edit', 'uses' => 'BFasilitasController@edit']);
-    Route::patch('config/fasilitas/{id}',['as' => 'config.fasilitas.update', 'uses' => 'BFasilitasController@update']);
-    Route::delete('config/fasilitas/{id}',['as' => 'config.fasilitas.destroy', 'uses' => 'BFasilitasController@destroy']);
+    Route::get('config/product',['as' => 'config.product.index', 'uses' => 'BProductController@index']);
+    Route::get('config/product/create',['as' => 'config.product.create', 'uses' => 'BProductController@create']);
+    Route::post('config/product',['as' => 'config.product.store', 'uses' => 'BProductController@store']);
+    Route::get('config/product/{id}',['as' => 'config.product.edit', 'uses' => 'BProductController@edit']);
+    Route::patch('config/product/{id}',['as' => 'config.product.update', 'uses' => 'BProductController@update']);
+    Route::delete('config/product/{id}',['as' => 'config.product.destroy', 'uses' => 'BProductController@destroy']);
 
-    Route::get('config/aktivitas',['as' => 'config.aktivitas.index', 'uses' => 'BAktivitasController@index']);
-    Route::get('config/aktivitas/create',['as' => 'config.aktivitas.create', 'uses' => 'BAktivitasController@create']);
-    Route::post('config/aktivitas',['as' => 'config.aktivitas.store', 'uses' => 'BAktivitasController@store']);
-    Route::get('config/aktivitas/{id}',['as' => 'config.aktivitas.edit', 'uses' => 'BAktivitasController@edit']);
-    Route::patch('config/aktivitas/{id}',['as' => 'config.aktivitas.update', 'uses' => 'BAktivitasController@update']);
-    Route::delete('config/aktivitas/{id}',['as' => 'config.aktivitas.destroy', 'uses' => 'BAktivitasController@destroy']);
+    Route::get('config/product-category/create',['as' => 'config.catproduct.create', 'uses' => 'BProductCatController@create']);
+    Route::post('config/product-category',['as' => 'config.catproduct.store', 'uses' => 'BProductCatController@store']);
+    Route::get('config/product-category/{id}',['as' => 'config.catproduct.edit', 'uses' => 'BProductCatController@edit']);
+    Route::patch('config/product-category/{id}',['as' => 'config.catproduct.update', 'uses' => 'BProductCatController@update']);
+    Route::delete('config/product-category/{id}',['as' => 'config.catproduct.destroy', 'uses' => 'BProductCatController@destroy']);
 
-    Route::get('config/aktivitas-category/create',['as' => 'config.cataktivitas.create', 'uses' => 'BAktivitasCatController@create']);
-    Route::post('config/aktivitas-category',['as' => 'config.cataktivitas.store', 'uses' => 'BAktivitasCatController@store']);
-    Route::get('config/aktivitas-category/{id}',['as' => 'config.cataktivitas.edit', 'uses' => 'BAktivitasCatController@edit']);
-    Route::patch('config/aktivitas-category/{id}',['as' => 'config.cataktivitas.update', 'uses' => 'BAktivitasCatController@update']);
-    Route::delete('config/aktivitas-category/{id}',['as' => 'config.cataktivitas.destroy', 'uses' => 'BAktivitasCatController@destroy']);
-
-    Route::get('config/header-image/{parent_id}',['as' => 'config.headerimage.index', 'uses' => 'BHeaderImageController@index']);
-    Route::get('config/header-image/{parent_id}/create',['as' => 'config.headerimage.create', 'uses' => 'BHeaderImageController@create']);
-    Route::post('config/header-image/{parent_id}',['as' => 'config.headerimage.store', 'uses' => 'BHeaderImageController@store']);
-    Route::get('config/header-image/{id}/edit',['as' => 'config.headerimage.edit', 'uses' => 'BHeaderImageController@edit']);
-    Route::patch('config/header-image/{id}',['as' => 'config.headerimage.update', 'uses' => 'BHeaderImageController@update']);
-    Route::delete('config/header-image/{id}',['as' => 'config.headerimage.destroy', 'uses' => 'BHeaderImageController@destroy']);
+    Route::get('config/product-image/{parent_id}',['as' => 'config.productimage.index', 'uses' => 'BProductImageController@index']);
+    Route::get('config/product-image/{parent_id}/create',['as' => 'config.productimage.create', 'uses' => 'BProductImageController@create']);
+    Route::post('config/product-image/{parent_id}',['as' => 'config.productimage.store', 'uses' => 'BProductImageController@store']);
+    Route::get('config/product-image/{id}/edit',['as' => 'config.productimage.edit', 'uses' => 'BProductImageController@edit']);
+    Route::patch('config/product-image/{id}',['as' => 'config.productimage.update', 'uses' => 'BProductImageController@update']);
+    Route::delete('config/product-image/{id}',['as' => 'config.productimage.destroy', 'uses' => 'BProductImageController@destroy']);
 
     Route::get('config/onpage-contact',['as' => 'config.onpage-contact.edit', 'uses' => 'BOnPageController@contact']);
     Route::patch('config/onpage-contact',['as' => 'config.onpage-contact.update', 'uses' => 'BOnPageController@updatecontact']);

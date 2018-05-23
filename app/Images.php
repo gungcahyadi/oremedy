@@ -8,7 +8,7 @@ class Images extends Model
 {
     protected $table = 'images';
     protected $fillable = [
-        'name', 'image', 'link', 'with_link', 'type', 'slider_conten', 'article_id', 'lang', 'equal_id'
+        'name', 'image', 'link', 'with_link', 'type', 'conten', 'article_id', 'lang', 'equal_id'
     ];
 
     public function article() {

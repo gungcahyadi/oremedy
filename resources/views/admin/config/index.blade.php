@@ -28,13 +28,13 @@
                 </div>
                 <div class="portlet-body">
                     {!! Form::open(['route' => 'web-config.update', 'method' => 'patch', 'class' => 'form-horizontal']) !!}
-                    <?php $fasilitascfg = $configs->where('config_name', 'fasilitas_pagination')->first(); ?>
+                    <?php $fasilitascfg = $configs->where('config_name', 'product_pagination')->first(); ?>
                     @if(!empty($fasilitascfg))
-                        <div class="form-group {!! $errors->has('fasilitas_pagination') ? 'has-error' : '' !!}">
-                            {!! Form::label('fasilitas_pagination', 'Fasilitas Pagination', ['class' => 'control-label col-md-2']) !!}
+                        <div class="form-group {!! $errors->has('product_pagination') ? 'has-error' : '' !!}">
+                            {!! Form::label('product_pagination', 'Fasilitas Pagination', ['class' => 'control-label col-md-2']) !!}
                             <div class="col-md-10">
-                                <div class=" row col-md-2">{!! Form::number('fasilitas_pagination', $fasilitascfg->value, ['class'=>'form-control', 'required']) !!}</div>
-                                {!! $errors->first('fasilitas_pagination', '<p class="help-block">:message</p>') !!}
+                                <div class=" row col-md-2">{!! Form::number('product_pagination', $fasilitascfg->value, ['class'=>'form-control', 'required']) !!}</div>
+                                {!! $errors->first('product_pagination', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
                     @endif

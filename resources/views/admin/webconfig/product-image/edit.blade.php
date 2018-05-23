@@ -7,22 +7,13 @@
                 <a href="{{ route('menu-utama.index') }}"><span>Manage Main Menu</span></a>
                 <i class="fa fa-circle"></i>
             </li>
-            @if($article->link == \Lang::get('route.program',[], $deflang))
+            @if($article->link == \Lang::get('route.product',[], $deflang))
                 <li>
-                    <a href="{{ route('config.program.index') }}"><span>{{ $article->parent->title }}</span></a>
+                    <a href="{{ route('config.product.index') }}"><span>{{ $parentarticle->title }}</span></a>
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <a href="{{ route('config.headerimage.index', $article->equal_id) }}"><span>{{ 'Header Image of '.$article->title }}</span></a>
-                    <i class="fa fa-circle"></i>
-                </li>
-            @elseif($article->link == \Lang::get('route.fasilitas',[], $deflang))
-                <li>
-                    <a href="{{ route('config.fasilitas.index') }}"><span>{{ $parentarticle->title }}</span></a>
-                    <i class="fa fa-circle"></i>
-                </li>
-                <li>
-                    <a href="{{ route('config.headerimage.index', $article->equal_id) }}"><span>{{ 'Header Image of '.$article->title }}</span></a>
+                    <a href="{{ route('config.productimage.index', $article->equal_id) }}"><span>{{ 'Header Image of '.$article->title }}</span></a>
                     <i class="fa fa-circle"></i>
                 </li>
             @endif
@@ -47,7 +38,7 @@
                     </div>
                 </div>
                 <div class="portlet-body" style="display: block;">
-                    {!! Form::open(['route' => ['config.headerimage.update', $image->first()->equal_id], 'method' => 'patch', 'files' => true, 'id' => 'submit_form'])!!}
+                    {!! Form::open(['route' => ['config.productimage.update', $image->first()->equal_id], 'method' => 'patch', 'files' => true, 'id' => 'submit_form'])!!}
                     @foreach(config('app.all_langs') as $lang)
                         <div class="form-group {!! $errors->has('name_'.$lang) ? 'has-error' : '' !!}">
                             {!! Form::label('name_'.$lang, 'Name ('.config('app.human_langs')[$lang].')') !!}

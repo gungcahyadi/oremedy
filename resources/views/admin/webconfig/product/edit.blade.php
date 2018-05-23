@@ -57,6 +57,16 @@
                                         {!! Form::text('title', null, ['class'=>'form-control']) !!}
                                         {!! $errors->{$lang}->first('title', '<p class="help-block">:message</p>') !!}
                                     </div>
+                                    <div class="form-group {!! $errors->{$lang}->has('price') ? 'has-error' : '' !!}">
+                                        {!! Form::label('price', 'Price') !!}
+                                        {!! Form::text('price', null, ['class'=>'form-control']) !!}
+                                        {!! $errors->{$lang}->first('price', '<p class="help-block">:message</p>') !!}
+                                    </div>
+                                    <div class="form-group {!! $errors->{$lang}->has('categories') ? 'has-error' : '' !!}">
+                                        {!! Form::label('categories'.$lang, 'Categories', ['class' => 'control-label col-md-2']) !!}
+                                        {!! Form::select('categories', null, ['class'=>'form-control']) !!}
+                                        {!! $errors->{$lang}->first('categories', '<p class="help-block">:message</p>') !!}
+                                    </div>
                                     <div class="form-group {!! $errors->{$lang}->has('short_description') ? 'has-error' : '' !!}">
                                         {!! Form::label('short_description', 'Short Description') !!}
                                         {!! Form::textarea('short_description', null, ['class'=>'form-control editor-textarea']) !!}
@@ -66,11 +76,6 @@
                                         {!! Form::label('conten', 'Conten') !!}
                                         {!! Form::textarea('conten', null, ['class'=>'form-control editor-textarea']) !!}
                                         {!! $errors->{$lang}->first('conten', '<p class="help-block">:message</p>') !!}
-                                    </div>
-                                    <div class="form-group {!! $errors->{$lang}->has('price') ? 'has-error' : '' !!}">
-                                        {!! Form::label('price', 'Price') !!}
-                                        {!! Form::number('price', null, ['class'=>'form-control']) !!}
-                                        {!! $errors->{$lang}->first('price', '<p class="help-block">:message</p>') !!}
                                     </div>
                                     @if($lang == config('app.default_locale'))
                                         <div class="form-group {!! $errors->{$lang}->has('thumb_image') ? 'has-error' : '' !!}">

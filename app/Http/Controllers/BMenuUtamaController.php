@@ -56,10 +56,7 @@ class BMenuUtamaController extends Controller
         $lang = config('app.default_locale');
         return [
             '/' => [['type' => 'image', 'tooltip' => 'Home Sliders', 'link' => 'homeslider']],
-            \Lang::get('route.pendaftaran',[], $lang) => [['type' => 'data', 'tooltip' => 'Pendaftaran', 'link' => 'data-pendaftaran']],
-            \Lang::get('route.program',[], $lang) => [['type' => 'data', 'tooltip' => 'Program', 'link' => 'program']],
-            \Lang::get('route.fasilitas',[], $lang) => [['type' => 'data', 'tooltip' => 'Fasilitas', 'link' => 'fasilitas']],
-            \Lang::get('route.aktivitas',[], $lang) => [['type' => 'data', 'tooltip' => 'Aktivitas', 'link' => 'aktivitas']],
+            \Lang::get('route.product',[], $lang) => [['type' => 'dataandimage', 'tooltip' => 'Product', 'link' => 'product']],
             \Lang::get('route.contact',[], $lang) => [['type' => 'onpage', 'tooltip' => 'Description Inside the Page', 'link' => 'onpage-contact']],
         ];
     }

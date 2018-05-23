@@ -12,7 +12,6 @@ class FContactController extends Controller
     public function index() {
         $lang = \App::getLocale();
         $contact = Article::where('link', \Lang::get('route.contact',[], $lang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $lang)->firstOrFail();
-        $office = Article::where('position','office')->where('lang', $lang)->get();
         $contactonpage = $contact->childs()->where('position', 'page')->where('published', '1')->where('lang', $lang)->get();
         $alt_langs = array_diff(config('app.all_langs'), array($lang));
         $altlink = [];
@@ -26,7 +25,7 @@ class FContactController extends Controller
             }
         }
         $altlink = json_encode($altlink);
-        return view('front.contact', compact('contact','office', 'altlink', 'contactonpage'));
+        return view('front.contact', compact('contact', 'altlink', 'contactonpage'));
     }
 
     public function store(Request $request) {
