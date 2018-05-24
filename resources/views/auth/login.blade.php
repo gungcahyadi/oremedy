@@ -4,7 +4,7 @@
     <div class="content">
         <!-- BEGIN LOGIN FORM -->
         {{ Form::open(['url' => '/login','method' => 'post']) }}
-        <h3 class="form-title font-green" style="padding: 10px 0;">Bali Tourism College</h3>
+        <h3 class="form-title font-green" style="padding: 10px 0;">Hermosa</h3>
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}

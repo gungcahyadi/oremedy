@@ -47,7 +47,7 @@
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="{{ route('admin.index') }}">
-                <img src="{{ asset('assets/back/pages/img/btc-text.png') }}" alt="logo" class="logo-default" /> </a>
+                <h4>Hermosa</h4> </a>
             <div class="menu-toggler sidebar-toggler"> </div>
         </div>
         <!-- END LOGO -->

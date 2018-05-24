@@ -19,8 +19,18 @@ return [
     'sub-produk' => 'Temukan dan ketahui tentang produk terbaik kami',
     'produk-terkait' => 'Produk Terkait',
 
+    'sh-contact' => 'Kirim Umpan Balik Anda',
+    'sh-team' => 'Team Kreatif kami',
+    'sh-buy' => 'Beli Sekarang !',
+    
     'ct-dha' => 'kantor-dhaka',
     'ct-aus' => 'kantor-austrilia',
     'ct-eng' => 'kantor-england',
+    'ct-tel' => 'hubungi-kami',
+
+    'ctf-name' => 'Nama Anda',
+    'ctf-email' => 'Alamat Email Anda',
+    'ctf-message' => 'Pesan Anda',
+    'send-mess' => 'Kirim'
     
 ];

@@ -13,19 +13,22 @@
     <header class="hero-area">
         <div class="container-fluid no-padding">
             <div class="row">
+                <?php
+                    $tel = $contactonpage->where('slug', \Lang::get('front.ct-tel',[], \App::getLocale()))->first();
+                    ?>
 
                 <div class="col-md-6 col-sm-12">
                     <div class="section-content">
                         <span class="text-error"><i class="fa fa-phone-square"></i></span>
-                        <h2 class="header-title">+0987654321</h2>
-                        <p>For any query call us. Our 24/7 help line is always open.</p>
-                        <a href="callto:+0987654321" class="btn">call us  <i class="fa fa-chevron-right"></i></a>
+                        <h2 class="header-title">{{ $tel->conten }}</h2>
+                        <p>{{ $tel->short_description }}</p>
+                        <a href="callto:{{ $tel->conten }}" class="btn">{{ $tel->title }}<i class="fa fa-chevron-right"></i></a>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-sm-12">
                     <div class="section-img">
-                        <img class="img-responsive" src="{{ asset('assets/front/img/hero-21.jpg') }}" alt="themesnerd">
+                        <img class="img-responsive" src="{{ asset('assets/front/images/'.$tel->thumb_image) }}" alt="themesnerd">
                     </div>
                 </div>
 
@@ -38,22 +41,34 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-push-3 col-sm-12 text-center">
-                    <h2 class="section-heading">Send Your Feedback</h2>
+                    <h2 class="section-heading">{{ \Lang::get('front.sh-contact',[], \App::getLocale()) }}</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 col-md-push-3 col-sm-12">
-                    <form id="contact-form" action="#" method="post">
-                        <div class="form-group">
-                            <label>Your Name</label>
-                            <input name="contact-name" type="text" class="form-control" placeholder="jhon deo" />
-                            <label>Your Email Address</label>
-                            <input name="contact-email" type="text" class="form-control" placeholder="someone@email.com" />
-                            <label>Your Message</label>
-                            <textarea name="contact-message" class="" placeholder="your message"></textarea>
-                            <button type="submit" class="btn btn-outline">Submit</button>
+                    {!! Form::open(['url' => preg_replace('#/+#','/',  config('app.locale_prefix').'/'.\Lang::get('route.contact',[], \App::getLocale())),'method' => 'post', 'id' => 'contact-form'])!!}
+                        @if(Session::has('notification'))
+                            <div class="alert alert-{{ Session::get('notification.level', 'info') }}" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                {{ Session::get('notification.message') }}
+                            </div>
+                        @endif
+                        <div class="form-group {!! $errors->has('name') ? 'has-error' : '' !!}">
+                            {!! Form::text('name', null, ['placeholder' => \Lang::get('front.ctf-name',[], \App::getLocale()), 'class' => 'form-control']) !!}
+                            {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                         </div>
-                    </form>
+                        <div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}">
+                            {!! Form::email('email', null, ['placeholder' => \Lang::get('front.ctf-email',[], \App::getLocale()), 'class' => 'form-control']) !!}
+                            {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
+                        </div>
+                        <div class="form-group {!! $errors->has('message') ? 'has-error' : '' !!}">
+                            {!! Form::textarea('message', null, ['placeholder' => \Lang::get('front.ctf-message',[], \App::getLocale())]) !!}
+                            {!! $errors->first('message', '<p class="help-block">:message</p>') !!}
+                        </div>
+                        {!! app('captcha')->render() !!}
+                        {!! Form::submit(\Lang::get('front.send-mess',[], \App::getLocale()), ['class' => 'btn btn-outline']) !!}
+
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

@@ -34,7 +34,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 text-center">
-                    <h2 class="section-heading">Our Creative Mind</h2>
+                    <h2 class="section-heading">{{ \Lang::get('front.sh-team',[], \App::getLocale()) }}</h2>
                 </div>
             </div>
             <div class="row team-members">

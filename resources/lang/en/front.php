@@ -19,8 +19,17 @@ return [
     'sub-produk' => 'Find and know abour our best product',
     'produk-terkait' => 'Related Products',
 
+    'sh-contact' => 'Send Your Feedback',
+    'sh-team' => 'Our Creative Mind',
+    'sh-buy' => 'Buy Now !',
+
     'ct-dha' => 'dhaka-office',
     'ct-aus' => 'austrilia-office',
     'ct-eng' => 'england-office',
-    
+    'ct-tel' => 'call-us',
+
+    'ctf-name' => 'Your Name',
+    'ctf-email' => 'Your Email Address',
+    'ctf-message' => 'Your Message',
+    'send-mess' => 'Send'
 ];

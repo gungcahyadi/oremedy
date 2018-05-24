@@ -67,7 +67,7 @@
                         <h3 class="product-price">{{ $product->price }}</h3>
 
                         <hr> <!-- Button Link ke Online store -->
-                        <h3>Buy Now!</h3>
+                        <h3>{{ \Lang::get('front.sh-buy',[], \App::getLocale()) }}</h3>
                         <a href="https://www.tokopedia.com/" target="blank" class="btn btn-outline twitter">Tokopedia<i class="fa fa-cart-arrow-down"></i></a>
                         <a href="https://shopee.co.id/" target="blank" class="btn btn-outline twitter">Shopee<i class="fa fa-cart-arrow-down"></i></a>
                         <hr> <!-- Button Link ke Online store -->
