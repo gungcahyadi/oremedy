@@ -57,13 +57,6 @@
                                                 @elseif($mconfig['type'] == 'image')
                                                     <span class="tooltips" data-original-title="Image {{ $mconfig['tooltip'] }}">
                                                         <a href="{{ url('admin/config/'.$mconfig['link']) }}" class="btn btn-icon-only purple-wisteria"><i class="fa fa-image"></i></a>
-                                                    </span> 
-                                                @elseif($mconfig['type'] == 'dataandimage')
-                                                    <span class="tooltips" data-original-title="Data {{ $mconfig['tooltip'] }}">
-                                                        <a href="{{ url('admin/config/'.$mconfig['link']) }}" class="btn btn-icon-only green"><i class="fa fa-table"></i></a>
-                                                    </span>
-                                                    <span class="tooltips" data-original-title="Image {{ $mconfig['tooltip'] }}">
-                                                        <a href="{{ url('admin/config/'.$mconfig['link']) }}" class="btn btn-icon-only purple-wisteria"><i class="fa fa-image"></i></a>
                                                     </span>                                                
                                                 @endif
                                             @endforeach

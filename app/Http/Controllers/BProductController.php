@@ -46,7 +46,9 @@ class BProductController extends Controller
         $deflang = config('app.default_locale');
         $eqid = uniqid('ART', true);
 
-        $rowRules = [];
+        $rowRules = [
+            'categories' => 'required'
+        ];
         foreach($alllangs as $lang) {
             if ($lang == config('app.default_locale')) {
                 $langRules = [
@@ -102,8 +104,14 @@ class BProductController extends Controller
             } else {
                 $data['thumb_image'] = ${'fs_'.$deflang}->thumb_image;
             }
-
             ${'fs_'.$lang} = Article::create($data);
+            if ($lang == $deflang) {
+                ${'fs_'.$lang}->categories()->sync($request->categories);
+            } else {
+                $equalcat = Category::whereIn('id', $request->categories)->pluck('equal_id');
+                $altcat = Category::whereIn('equal_id', $equalcat)->where('lang', $lang)->pluck('id');
+                ${'fs_'.$lang}->categories()->sync($altcat->toArray());
+            }
         }
 
         \Session::flash('notification', ['level' => 'success', 'message' => 'Article product '.${'fs_'.$deflang}->title.' saved.']);
@@ -132,6 +140,7 @@ class BProductController extends Controller
         $article = Article::where('link', \Lang::get('route.product',[], config('app.default_locale')))->where('more_config', '1')->where('published', '1')->where('lang', config('app.default_locale'))->firstOrFail();
         $product = Article::where('slug', '!=', '')->where('equal_id', $equalid)->get();
         return view('admin.webconfig.product.edit', compact('article', 'product'));
+
     }
 
     /**
@@ -143,7 +152,11 @@ class BProductController extends Controller
      */
     public function update(Request $request, $equalid)
     {
+
         $product = Article::where('equal_id', $equalid)->where('lang', $request->lang)->firstOrFail();
+        $rowRules = [
+            'categories' => 'required'
+        ];
         if ($request->lang == config('app.default_locale')) {
             $rowRules = [
                 'title' => 'required',
@@ -179,14 +192,28 @@ class BProductController extends Controller
                     $data['thumb_image'] = $myimage->saveImage($request->file('thumb_image'), $request->title);
                     Article::where('equal_id', $equalid)->where('id', '!=', $product->id)->update(['thumb_image' => $data['thumb_image']]);
                 }
+
+                $product->categories()->sync($request->categories);
             } else {
                 $data = $request->only('title','price', 'short_description', 'conten', 'meta_title', 'meta_keyword', 'meta_description');
             }
             $data['slug'] = str_slug($request->title);
 
             $product->update($data);
+
             if ($request->lang == config('app.default_locale')) {
                 Article::where('equal_id', $equalid)->where('id', '!=', $product->id)->update(['published' => $request->published]);
+
+                $equalcat = Category::where('id', $request->categories)->pluck('equal_id');
+
+                $alt_langs = array_diff(config('app.all_langs'), array(config('app.default_locale')));
+                foreach ($alt_langs as $altlang) {
+                    $altcat = Category::whereIn('equal_id', $equalcat)->where('lang', $altlang)->pluck('id');
+                    $altproduk = Article::where('equal_id', $equalid)->where('lang', $altlang)->first();
+                    if (!empty($altproduk)) {
+                       $altproduk->categories()->sync($altcat->toArray());
+                    }
+                }
             }
             \Session::flash('notification', ['level' => 'success', 'message' => 'Article Product '.$product->title . ' updated.']);
             return redirect()->route('config.product.index');

@@ -41,10 +41,10 @@
                             {!! Form::text('name_'.$lang, $slider->where('lang', $lang)->first()->name, ['class'=>'form-control', 'required']) !!}
                             {!! $errors->first('name_'.$lang, '<p class="help-block">:message</p>') !!}
                         </div>
-                        <div class="form-group {!! $errors->has('slider_conten_'.$lang) ? 'has-error' : '' !!}">
-                            {!! Form::label('slider_conten_'.$lang, 'Slider Conten ('.config('app.human_langs')[$lang].')') !!}
-                            {!! Form::textarea('slider_conten_'.$lang, $slider->where('lang', $lang)->first()->slider_conten, ['class'=>'form-control editor-textarea']) !!}
-                            {!! $errors->first('slider_conten_'.$lang, '<p class="help-block">:message</p>') !!}
+                        <div class="form-group {!! $errors->has('conten_'.$lang) ? 'has-error' : '' !!}">
+                            {!! Form::label('conten_'.$lang, 'Slider Conten ('.config('app.human_langs')[$lang].')') !!}
+                            {!! Form::textarea('conten_'.$lang, $slider->where('lang', $lang)->first()->conten, ['class'=>'form-control editor-textarea']) !!}
+                            {!! $errors->first('conten_'.$lang, '<p class="help-block">:message</p>') !!}
                         </div>
                     @endforeach
                     <div class="form-group {!! $errors->has('image') ? 'has-error' : '' !!}">

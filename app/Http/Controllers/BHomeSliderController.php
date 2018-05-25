@@ -39,7 +39,7 @@ class BHomeSliderController extends Controller
         foreach($alllangs as $lang) {
             $data = [];
             $data['name'] = $request->{'name_'.$lang};
-            $data['slider_conten'] = $request->{'slider_conten_'.$lang};
+            $data['conten'] = $request->{'conten_'.$lang};
             $data['type'] = 'home-slider';
             $data['lang'] = $lang;
             $data['equal_id'] = $eqid;
@@ -87,7 +87,7 @@ class BHomeSliderController extends Controller
 
             $data = [];
             $data['name'] = $request->{'name_'.$lang};
-            $data['slider_conten'] = $request->{'slider_conten_'.$lang};
+            $data['conten'] = $request->{'conten_'.$lang};
 
             if ($lang == $deflang) {
                 if ($request->hasFile('image')) {

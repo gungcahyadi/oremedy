@@ -62,11 +62,13 @@
                                         {!! Form::text('price', null, ['class'=>'form-control']) !!}
                                         {!! $errors->{$lang}->first('price', '<p class="help-block">:message</p>') !!}
                                     </div>
-                                    <div class="form-group {!! $errors->{$lang}->has('categories') ? 'has-error' : '' !!}">
-                                        {!! Form::label('categories'.$lang, 'Categories', ['class' => 'control-label col-md-2']) !!}
-                                        {!! Form::select('categories', null, ['class'=>'form-control']) !!}
-                                        {!! $errors->{$lang}->first('categories', '<p class="help-block">:message</p>') !!}
+                                    @if($lang == config('app.default_locale'))
+                                    <div class="form-group {!! $errors->has('categories') ? 'has-error' : '' !!}">
+                                        {!! Form::label('categories', 'Categories') !!}
+                                        {!! Form::select('categories', []+App\Category::where('type', 'product')->where('lang', config('app.default_locale'))->pluck('category','id')->all(), null, ['class'=>'form-control']) !!}
+                                        {!! $errors->first('categories', '<p class="help-block">:message</p>') !!}
                                     </div>
+                                    @endif                                    
                                     <div class="form-group {!! $errors->{$lang}->has('short_description') ? 'has-error' : '' !!}">
                                         {!! Form::label('short_description', 'Short Description') !!}
                                         {!! Form::textarea('short_description', null, ['class'=>'form-control editor-textarea']) !!}
