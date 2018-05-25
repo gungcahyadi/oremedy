@@ -22,7 +22,7 @@
                         <span class="text-error"><i class="fa fa-phone-square"></i></span>
                         <h2 class="header-title">{{ $tel->conten }}</h2>
                         <p>{{ $tel->short_description }}</p>
-                        <a href="callto:{{ $tel->conten }}" class="btn">{{ $tel->title }}<i class="fa fa-chevron-right"></i></a>
+                        <a href="tel:{{ $tel->conten }}" class="btn">{{ $tel->title }}<i class="fa fa-chevron-right"></i></a>
                     </div>
                 </div>
 
