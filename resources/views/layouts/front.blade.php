@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="col-md-5 col-sm-12 footer-links">
-                    <h4 class="link-title">Useful Information</h4>
+                    <h4 class="link-title">{{ \Lang::get('front.sh-fot-menu',[], \App::getLocale()) }}</h4>
                         <div class="col-sm-8 no-padding">
                             <ul class="xtra-links">
                                 @foreach($mutama as $mu)

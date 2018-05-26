@@ -22,6 +22,7 @@ return [
     'sh-contact' => 'Kirim Umpan Balik Anda',
     'sh-team' => 'Team Kreatif kami',
     'sh-buy' => 'Beli Sekarang !',
+    'sh-fot-menu' => 'Informasi Bermanfaat',
     
     'ct-dha' => 'kantor-dhaka',
     'ct-aus' => 'kantor-austrilia',

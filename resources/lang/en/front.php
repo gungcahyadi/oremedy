@@ -22,7 +22,8 @@ return [
     'sh-contact' => 'Send Your Feedback',
     'sh-team' => 'Our Creative Mind',
     'sh-buy' => 'Buy Now !',
-
+    'sh-fot-menu' => 'Useful Information',
+    
     'ct-dha' => 'dhaka-office',
     'ct-aus' => 'austrilia-office',
     'ct-eng' => 'england-office',
