@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-6 col-md-push-6 col-sm-12 no-padding">
                     <div class="section-img">
-                        <img class="img-responsive" src="{{ asset('assets/front/img/'.$about->thumb_image) }}" alt="themesnerd">
+                        <img class="img-responsive" src="{{ asset('assets/front/images/'.$about->thumb_image) }}" alt="themesnerd">
                     </div>
                 </div>
                 <div class="col-md-6 col-md-pull-6 col-sm-12 no-padding">

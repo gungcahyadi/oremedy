@@ -10,7 +10,7 @@ return [
     'ci-choose' => 'interior-klasik',
     'co-choose' => 'konsultasi',
 
-    'con-title' => 'Berhubungan',
+    'con-title' => 'Hubungan',
     'con-subtitle' => 'Kami selalu di sini untuk mendengar dari Anda.',
 
     'explore-all' => 'Jelajahi Semua',

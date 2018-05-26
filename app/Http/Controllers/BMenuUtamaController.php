@@ -57,7 +57,7 @@ class BMenuUtamaController extends Controller
         return [
             '/' => [['type' => 'image', 'tooltip' => 'Home Sliders', 'link' => 'homeslider']],
             \Lang::get('route.product',[], $lang) => [['type' => 'data', 'tooltip' => 'Product', 'link' => 'product']],
-            \Lang::get('route.about',[], $lang) => [['type' => 'image', 'tooltip' => 'About', 'link' => 'about']],
+            \Lang::get('route.about',[], $lang) => [['type' => 'image', 'tooltip' => 'Team', 'link' => 'team']],
             \Lang::get('route.contact',[], $lang) => [['type' => 'onpage', 'tooltip' => 'Description Inside the Page', 'link' => 'onpage-contact']],
         ];
     }

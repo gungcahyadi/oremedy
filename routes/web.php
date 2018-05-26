@@ -60,6 +60,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::patch('config/homeslider/{id}',['as' => 'config.homeslider.update', 'uses' => 'BHomeSliderController@update']);
     Route::delete('config/homeslider/{id}',['as' => 'config.homeslider.destroy', 'uses' => 'BHomeSliderController@destroy']);
 
+    Route::get('config/team',['as' => 'config.team.index', 'uses' => 'BTeamController@index']);
+    Route::get('config/team/create',['as' => 'config.team.create', 'uses' => 'BTeamController@create']);
+    Route::post('config/team',['as' => 'config.team.store', 'uses' => 'BTeamController@store']);
+    Route::get('config/team/{id}/edit',['as' => 'config.team.edit', 'uses' => 'BTeamController@edit']);
+    Route::patch('config/team/{id}',['as' => 'config.team.update', 'uses' => 'BTeamController@update']);
+    Route::delete('config/team/{id}',['as' => 'config.team.destroy', 'uses' => 'BTeamController@destroy']);
+
     Route::get('config/product',['as' => 'config.product.index', 'uses' => 'BProductController@index']);
     Route::get('config/product/create',['as' => 'config.product.create', 'uses' => 'BProductController@create']);
     Route::post('config/product',['as' => 'config.product.store', 'uses' => 'BProductController@store']);

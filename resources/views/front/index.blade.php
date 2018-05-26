@@ -1,4 +1,24 @@
 @extends('layouts.front')
+@section('custom-css')
+    <style>
+        .item-content{
+            width: 80%;
+            margin: auto;
+            height: 100%;
+        }
+        .item-desc{
+            padding: 200px 0;
+        }
+        .desc{
+            padding: 20px 0; 
+        }
+        .decor{
+            width: 80px;
+            height: 10px;
+            background-color:#9ec75d;
+        }
+    </style>
+@endsection
 @section('custom-js')
     <script src="{{ asset('assets/front/js/index-1.js') }}"></script>
 @endsection
@@ -16,9 +36,19 @@
             <?php $no = 0; ?>
                 @foreach($homeslider as $hs)
                     <div class="item">
-                        <a href="#">
-                        <div class="item-img" style="background-image: url('{{ asset('assets/front/images/'.$hs->image) }}'); "></div>
-                        </a>
+                        <div class="item-img" style="background-image: url('{{ asset('assets/front/images/'.$hs->image) }}'); ">
+                            @if($hs->conten != "")
+                            <div class="item-content">
+                                <div class="item-desc">
+                                    <h2 class="section-heading">{{ $hs->name }}</h2>
+                                    <div class="decor"></div>
+                                    <div class="desc">
+                                        {!! $hs->conten !!}
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
                     </div>
                 <?php $no++; ?>
             @endforeach
@@ -131,7 +161,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12 no-padding">
                     <div class="section-img">
-                        <img class="img-responsive" src="{{ asset('assets/front/img/hero-28.jpg') }}" alt="themesnerd">
+                        <img class="img-responsive" src="{{ asset('assets/front/images/'.$whychoose->thumb_image) }}" alt="themesnerd">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12 no-padding">

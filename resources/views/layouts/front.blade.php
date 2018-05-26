@@ -53,7 +53,7 @@
                 
                 <a class="btn btn-icon-only navbar-toggle" data-toggle="collapse" data-target=".form-wrap"><i class="fa fa-search"></i></a>
                 <a class="navbar-brand" href="{{ url('/'.config('app.locale_prefix')) }}">
-                    <div class="brand-logo"><img alt="themesnerd" src="{{ asset('assets/front/img/logo.png') }}">
+                    <div class="brand-logo"><img alt="themesnerd" src="{{ asset('assets/front/images/logo.png') }}">
                     </div>
                 </a>
             </div>
