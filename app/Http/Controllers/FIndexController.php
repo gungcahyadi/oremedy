@@ -16,7 +16,7 @@ class FIndexController extends Controller
         $whychoose = Article::where('position', 'why-choose')->where('published', '1')->where('lang', $lang)->first();
         $contenwhychoose = $whychoose->childs()->where('position', 'page')->where('published', '1')->where('lang', $lang)->limit(4)->get();
         $contact = Article::where('link', \Lang::get('route.contact',[], $lang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $lang)->firstOrFail();
-        $allproduct = Article::where('position', 'product')->where('published', '1')->where('lang', $lang)->orderBy('updated_at', 'desc')->limit(4)->get();
+        $allproduct = Article::where('position', 'product')->where('published', '1')->where('lang', $lang)->orderBy('updated_at', 'desc')->where('display', '1')->get();
         $onpage = Article::where('position', 'page')->where('lang', $lang)->first();
         $alt_langs = array_diff(config('app.all_langs'), array($lang));
         $altlink = [];
@@ -29,7 +29,7 @@ class FIndexController extends Controller
                 $altlink[$altlang] = '#';
             }
         }
-        $altlink = json_encode($altlink);
+        // $altlink = json_encode($altlink);
         return view('front.index', compact('home', 'altlink', 'homeslider', 'allproduct','onpage', 'about', 'whychoose','contenwhychoose','contact','contactimage', 'program', 'allprogram'));
     }
 }

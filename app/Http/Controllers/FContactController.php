@@ -24,7 +24,7 @@ class FContactController extends Controller
                 $altlink[$altlang] = '#';
             }
         }
-        $altlink = json_encode($altlink);
+        // $altlink = json_encode($altlink);
         return view('front.contact', compact('contact', 'altlink', 'contactonpage'));
     }
 

@@ -184,6 +184,7 @@
                             <td>Name</td>
                             <td class="col-md-5">Short Description</td>
                             <td class="col-md-1">Published</td>
+                            <td class="col-md-1">Display</td>
                             <td class="text-center col-md-2">#</td>
                             <td class="text-center col-md-1">#</td>
                         </tr>
@@ -194,6 +195,7 @@
                                 <td>{{ $af->title }}</td>
                                 <td>{!! $af->short_description !!}</td>
                                 <td class="text-center">@if($af->published == '1') Yes @else No @endif</td>
+                                <td class="text-center">@if($af->display == '1') Yes @else No @endif</td>
                                 <td class="text-center col-md-2 col-sm-3">
                                     {!! Form::model($af, ['route' => ['config.product.destroy', $af->equal_id], 'method' => 'delete', 'class' => 'form-inline'] ) !!}
                                     <span class="tooltips" data-original-title="Edit">

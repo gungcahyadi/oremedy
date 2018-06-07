@@ -16,13 +16,13 @@ class ConfigCokielang
     public function handle($request, Closure $next)
     {
         if (in_array($request->segment(1), config('app.all_langs'))) {
-            if ($request->cookie('btc_lang') !== null) {
-                if ($request->cookie('btc_lang') !== $request->segment(1)) {
-                    \Cookie::forget('btc_lang');
-                    \Cookie::queue('btc_lang', $request->segment(1), 'forever');
+            if ($request->cookie('oremedy_lang') !== null) {
+                if ($request->cookie('oremedy_lang') !== $request->segment(1)) {
+                    \Cookie::forget('oremedy_lang');
+                    \Cookie::queue('oremedy_lang', $request->segment(1), 'forever');
                 }
             } else {
-                \Cookie::queue('btc_lang', $request->segment(1), 'forever');
+                \Cookie::queue('oremedy_lang', $request->segment(1), 'forever');
             }
         }
         return $next($request);

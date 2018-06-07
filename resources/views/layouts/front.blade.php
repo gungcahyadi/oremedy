@@ -17,6 +17,11 @@
     <meta name="web_author" content="Ganeshcom Studio">
     <meta name="web_author" content="http://ganeshcomstudio.com">
     {{--<meta name="google-site-verification" content="...">--}}
+    @if(count($altlink) > 0)
+    @foreach($altlink as $key => $link)
+    <link rel="alternate" href="{!! $link !!}" hreflang="{{ $key }}"/>
+    @endforeach
+    @endif    
     @yield('page-head-seo')
     <link rel="icon" href="{{ asset('assets/front/img/fabicon.png') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/front/css/bootstrap.min.css') }}">
@@ -34,13 +39,13 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <script src="{{ asset('assets/front/js/modernizr.custom.12691.js') }}"></script>
+<![endif]-->
+<script src="{{ asset('assets/front/js/modernizr.custom.12691.js') }}"></script>
 </head>
 
 <body>
     <h1 class="sr-only">Oremedy: Best Skin Care</h1>
-<!--Navbar-->
+    <!--Navbar-->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -61,49 +66,35 @@
                 @foreach($socialmedias as $scm)
                 <a href="{{ $scm->link }}" class="btn btn-icon-only btn-nav btn-nav-desktop"><i class="fa {{ $scm->platform_favicon }}"></i></a>
                 @endforeach
-                <a class="btn btn-icon-only btn-nav btn-nav-desktop" data-toggle="collapse" data-target=".form-wrap"><i class="fa fa-search"></i></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="main-menu">
                 <ul class="nav navbar-nav navbar-right">
                     @foreach($mutama as $mu)
-                        @if($mu->link == \Lang::get('route.product',[], \App::getLocale()))
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ $mu->title }}<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$mu->link)) }}">{{ \Lang::get('front.allproduct',[], \App::getLocale()) }}</a></li>
-                                    @foreach($mu->childs()->where('published', '1')->get() as $child)
-                                        <li><a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$child->   link.'/'.$child->slug)) }}">{{ $child->title }}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @else
-                            <li><a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$mu->link)) }}">{!! $mu->title !!}</a></li>
-                        @endif
-                    @endforeach
+                    @if($mu->link == \Lang::get('route.product',[], \App::getLocale()))
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ $mu->title }}<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$mu->link)) }}">{{ \Lang::get('front.allproduct',[], \App::getLocale()) }}</a></li>
+                            @foreach($mu->childs()->where('published', '1')->get() as $child)
+                            <li><a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$child->   link.'/'.$child->slug)) }}">{{ $child->title }}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
+                    @else
+                    <li><a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$mu->link)) }}">{!! $mu->title !!}</a></li>
+                    @endif
+                    @endforeach                      
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
-        <div class="container">
-            <div class="form-wrap collapse">
-                <form id="form-search" role="search" action="search.php" method="post">
-                    <div class="form-group">
-                        <input id="form-search-input" type="text" class="form-control" name="search-input" value="type to search" onfocus="this.value='';">
-                        <button type="submit"><i class="fa fa-search"></i>
-                        </button>
-                        <button type="reset" data-toggle="collapse" data-target=".form-wrap"><i class="fa fa-close"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
         <!-- /.container-fluid -->
     </nav>
 
-@yield('conten')
-<!-- FOOTER -->
-<footer>
+    @yield('conten')
+    <!-- FOOTER -->
+    <footer>
         <div class="container">
             <div class="row">
 
@@ -113,22 +104,32 @@
                     <p>{{ $footerabout->conten }}</p>
                 </div>
 
-                <div class="col-md-5 col-sm-12 footer-links">
+                <div class="col-md-3 col-sm-12 footer-links">
                     <h4 class="link-title">{{ \Lang::get('front.sh-fot-menu',[], \App::getLocale()) }}</h4>
-                        <div class="col-sm-8 no-padding">
-                            <ul class="xtra-links">
-                                @foreach($mutama as $mu)
-                                    @if($mu->link != \Lang::get('route.program',[], \App::getLocale()))
-                                       <div class="col-xs-6 no-padding">
-                                            <li>
-                                                <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$mu->link)) }}">{!! $mu->title !!}</a>
-                                            </li>
-                                        </div>
-                                    @endif
-                                @endforeach
-                            </ul>
-                        </div>
+                    <div class="col-sm-12 no-padding">
+                        <ul class="xtra-links">
+                            @foreach($mutama as $mu)
+                            @if($mu->link != \Lang::get('route.program',[], \App::getLocale()))
+                            <div class="col-xs-6 no-padding">
+                                <li>
+                                    <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$mu->link)) }}">{!! $mu->title !!}</a>
+                                </li>
+                            </div>
+                            @endif
+                            @endforeach
+                        </ul>
+                    </div>
                     <div class="clearfix"></div>
+                </div>
+                <div class="col-md-2 col-sm-12 footer-links">
+                    <h4 class="link-title">{{ \Lang::get('front.bahasa',[], \App::getLocale()) }}</h4>
+                    <div class="lang_select">
+                        <div class="form-group">
+                            <label class="select">
+                                {!! Form::select('selectlang', []+config('app.human_langs'), null, ['id' => 'selectlang','class' => 'form-control']) !!}
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-md-3 col-sm-12 footer-links">
@@ -168,29 +169,29 @@
             </div>
         </div>
     </footer>
-<!--FOOTER ends-->
+    <!--FOOTER ends-->
 
 
 
-<script src="{{ asset('assets/front/js/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/front/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/front/js/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('assets/front/js/wow.min.js') }}"></script>
-<script src="{{ asset('assets/front/js/main.js') }}"></script>
-@yield('custom-js')
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#selectlang').val('{{ \App::getLocale() }}');
-        @if(isset($altlink))
-            var altlink = {!! $altlink !!};
+    <script src="{{ asset('assets/front/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/front/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/front/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/front/js/wow.min.js') }}"></script>
+    <script src="{{ asset('assets/front/js/main.js') }}"></script>
+    @yield('custom-js')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#selectlang').val('{{ \App::getLocale() }}');
+            @if(isset($altlink))
+            var altlink = {!! json_encode($altlink); !!};
             $('#selectlang').on('change', function(e) {
                 var lang = $('#selectlang').val();
                 if(lang !== '{{ \App::getLocale() }}') {
                     window.location.href = altlink[lang];
                 }
             });
-        @endif
-    });
-</script>
+            @endif
+        });
+    </script>
 </body>
 </html>

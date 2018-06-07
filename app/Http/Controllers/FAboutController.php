@@ -23,7 +23,7 @@ class FAboutController extends Controller
                 $altlink[$altlang] = '#';
             }
         }
-        $altlink = json_encode($altlink);
+        // $altlink = json_encode($altlink);
         return view('front.about', compact('about','team', 'altlink'));
     }
 }

@@ -47,7 +47,10 @@ class BProductController extends Controller
         $eqid = uniqid('ART', true);
 
         $rowRules = [
-            'categories' => 'required'
+            'categories' => 'required',
+            'display',
+            'link_shopee',
+            'link_tokopedia'
         ];
         foreach($alllangs as $lang) {
             if ($lang == config('app.default_locale')) {
@@ -60,7 +63,7 @@ class BProductController extends Controller
                     'meta_keyword_'.$lang => 'required',
                     'meta_description_'.$lang => 'required',
                     'published' => 'required|in:1,0',
-                    'thumb_image' => 'required|mimes:jpeg,png|max:1024',
+                    'thumb_image' => 'required|mimes:jpeg,png|max:1024',                    
                 ];
             } else {
                 $langRules = [
@@ -91,9 +94,12 @@ class BProductController extends Controller
             $data['slug'] = str_slug($request->{'title_'.$lang});
             $data['position'] = 'product';
             $data['link'] = \Lang::get('route.product',[], $lang);
+            $data['link_shopee'] = $request->link_shopee;
+            $data['link_tokopedia'] = $request->link_tokopedia;
             $data['lang'] = $lang;
             $data['equal_id'] = $eqid;
             $data['published'] = $request->published;
+            $data['display'] = $request->display;
             $data['parent_id'] = Article::where('link', \Lang::get('route.product',[], $lang))->where('more_config', '1')->where('published', '1')->where('lang', $lang)->first()->id;
 
             if ($lang == config('app.default_locale')) {
@@ -155,7 +161,10 @@ class BProductController extends Controller
 
         $product = Article::where('equal_id', $equalid)->where('lang', $request->lang)->firstOrFail();
         $rowRules = [
-            'categories' => 'required'
+            'categories' => 'required',
+            'display',
+            'link_shopee',
+            'link_tokopedia',
         ];
         if ($request->lang == config('app.default_locale')) {
             $rowRules = [
@@ -183,7 +192,7 @@ class BProductController extends Controller
         $validator = \Validator::make($request->toArray(), $rowRules);
         if ($validator->passes()) {
             if ($request->lang == config('app.default_locale')) {
-                $data = $request->only('title','price', 'short_description', 'conten', 'meta_title', 'meta_keyword', 'meta_description', 'published');
+                $data = $request->only('title','price', 'short_description', 'conten','link_shopee','link_tokopedia', 'meta_title', 'meta_keyword', 'meta_description', 'published','display');
                 if ($request->hasFile('thumb_image')) {
                     $myimage = new MyImage();
                     if ($product->thumb_image != '') {
@@ -195,14 +204,19 @@ class BProductController extends Controller
 
                 $product->categories()->sync($request->categories);
             } else {
-                $data = $request->only('title','price', 'short_description', 'conten', 'meta_title', 'meta_keyword', 'meta_description');
+                $data = $request->only('title','price', 'short_description', 'conten','meta_title', 'meta_keyword', 'meta_description');
             }
             $data['slug'] = str_slug($request->title);
 
             $product->update($data);
 
             if ($request->lang == config('app.default_locale')) {
-                Article::where('equal_id', $equalid)->where('id', '!=', $product->id)->update(['published' => $request->published]);
+                Article::where('equal_id', $equalid)->where('id', '!=', $product->id)->update([
+                    'published' => $request->published,
+                    'display' => $request->display,
+                    'link_shopee' => $request->link_shopee,
+                    'link_tokopedia' => $request->link_tokopedia
+                ]);
 
                 $equalcat = Category::where('id', $request->categories)->pluck('equal_id');
 
@@ -236,6 +250,7 @@ class BProductController extends Controller
                 $myimage = new MyImage();
                 $myimage->deleteImage($fs);
             }
+            $product->categories()->detach();
         }
 
         foreach (Article::where('equal_id', $equalid)->get() as $fsl) {

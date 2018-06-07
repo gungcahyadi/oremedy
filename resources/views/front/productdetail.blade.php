@@ -24,20 +24,26 @@
                             <!-- Indicators -->                            
                             <ol class="carousel-indicators">
                                 <?php $no = 0; ?>
+                                <li data-target="#carousel-product" data-slide-to="0" class="active">
+                                    <img src="{{ asset('assets/front/images/'.$product->thumb_image) }}" alt="themesnerd" class="img-responsive">
+                                </li>
                                 @foreach($slideimage as $si)
-                                <li data-target="#carousel-product" data-slide-to="0" class="{{ $no == 0 ? 'active' : '' }}">
+                                <li data-target="#carousel-product" data-slide-to="0">
                                     <img src="{{ asset('assets/front/images/'.$si->image) }}" alt="themesnerd" class="img-responsive">
                                 </li>
                                 <?php $no++; ?>
-                                @endforeach                               
+                                @endforeach
                             </ol>
                             <!-- /Indicators -->
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
                                 <!-- Carousel -->
                                 <?php $no = 0; ?>
+                                <div class="item active">
+                                    <img src="{{ asset('assets/front/images/'.$product->thumb_image) }}" alt="themesnerd" class="img-responsive">
+                                </div>
                                 @foreach($slideimage as $si)
-                                <div class="item {{ $no == 0 ? 'active' : '' }}">
+                                <div class="item">
                                     <img src="{{ asset('assets/front/images/'.$si->image) }}" alt="themesnerd" class="img-responsive">
                                 </div>
                                 <?php $no++; ?>
@@ -68,8 +74,8 @@
 
                         <hr> <!-- Button Link ke Online store -->
                         <h3>{{ \Lang::get('front.sh-buy',[], \App::getLocale()) }}</h3>
-                        <a href="https://www.tokopedia.com/" target="blank" class="btn btn-outline twitter">Tokopedia<i class="fa fa-cart-arrow-down"></i></a>
-                        <a href="https://shopee.co.id/" target="blank" class="btn btn-outline twitter">Shopee<i class="fa fa-cart-arrow-down"></i></a>
+                        <a href="{{ $product->link_tokopedia }}" target="blank" class="btn btn-outline twitter">Tokopedia<i class="fa fa-cart-arrow-down"></i></a>
+                        <a href="{{ $product->link_shopee }}" target="blank" class="btn btn-outline twitter">Shopee<i class="fa fa-cart-arrow-down"></i></a>
                         <hr> <!-- Button Link ke Online store -->
 
                         <div class="product-description">

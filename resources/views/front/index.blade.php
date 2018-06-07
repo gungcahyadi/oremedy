@@ -99,6 +99,7 @@
             </div>
             <div class="row">
                 <!-- Product 1 -->
+                <?php $i=1; ?>
                 @foreach($allproduct as $fcl)
                 <div class="col-md-3 col-sm-6 col-xs-12 no-padding">
                     <figure class="wow fadeIn">
@@ -114,6 +115,10 @@
                         </figcaption>
                     </figure>
                 </div>
+                @if($i % 4 == 0)
+                <div class="clear"></div>
+                @endif
+                <?php $i++; ?>
                 @endforeach
                 <!-- /Product 1 -->                
             </div>

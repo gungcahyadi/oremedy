@@ -18,6 +18,7 @@ return [
     'judul-produk' => 'Our Herbal Product',
     'sub-produk' => 'Find and know abour our best product',
     'produk-terkait' => 'Related Products',
+    'bahasa' => 'Language',
 
     'sh-contact' => 'Send Your Feedback',
     'sh-team' => 'Our Creative Mind',

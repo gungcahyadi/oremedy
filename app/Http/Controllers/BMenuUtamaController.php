@@ -55,7 +55,10 @@ class BMenuUtamaController extends Controller
     public function menuConfig() {
         $lang = config('app.default_locale');
         return [
-            '/' => [['type' => 'image', 'tooltip' => 'Home Sliders', 'link' => 'homeslider']],
+            '/' => [
+                ['type' => 'image', 'tooltip' => 'Home Slider', 'link' => 'homeslider'],
+                ['type' => 'data', 'tooltip' => 'Home Page', 'link' => 'homepage']
+            ],
             \Lang::get('route.product',[], $lang) => [['type' => 'data', 'tooltip' => 'Product', 'link' => 'product']],
             \Lang::get('route.about',[], $lang) => [['type' => 'image', 'tooltip' => 'Team', 'link' => 'team']],
             \Lang::get('route.contact',[], $lang) => [['type' => 'onpage', 'tooltip' => 'Description Inside the Page', 'link' => 'onpage-contact']],

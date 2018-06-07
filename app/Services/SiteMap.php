@@ -13,12 +13,12 @@ class SiteMap
      */
     public function getSiteMap()
     {
-        if (Cache::has('btc-site-map')) {
-            return Cache::get('btc-site-map');
+        if (Cache::has('oremedy-site-map')) {
+            return Cache::get('oremedy-site-map');
         }
 
         $siteMap = $this->buildSiteMap();
-        Cache::add('btc-site-map', $siteMap, 120);
+        Cache::add('oremedy-site-map', $siteMap, 120);
         return $siteMap;
     }
 
@@ -36,10 +36,10 @@ class SiteMap
         $xml[] = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">';
 
         foreach ($menuUtama as $mu) {
-            if($mu->link == \Lang::get('route.program',[], $def_lang)) {
-                $allprograms = Article::where('link', \Lang::get('route.program',[], $def_lang))->where('position', 'program')->where('published', '1')->where('lang', $def_lang)->get();
-                foreach($allprograms as $ap) {
-                    $alt_ap = Article::where('position', 'program')->where('published', '1')->whereIn('lang', $alt_langs)->where('equal_id', $ap->equal_id)->select('id','title','link', 'slug', 'parent_id', 'equal_id', 'lang', 'updated_at')->get();
+            if($mu->link == \Lang::get('route.product',[], $def_lang)) {
+                $allproduct = Article::where('link', \Lang::get('route.product',[], $def_lang))->where('position', 'product')->where('published', '1')->where('lang', $def_lang)->get();
+                foreach($allproduct as $ap) {
+                    $alt_ap = Article::where('position', 'product')->where('published', '1')->whereIn('lang', $alt_langs)->where('equal_id', $ap->equal_id)->select('id','title','link', 'slug', 'parent_id', 'equal_id', 'lang', 'updated_at')->get();
                     $xml[] = "  <url>";
                     $xml[] = "    <loc>".url(preg_replace('#/+#','/', $def_lang.'/'.$ap->link.'/'.$ap->slug))."</loc>";
                     foreach ($alt_langs as $alt_lang) {
@@ -49,7 +49,7 @@ class SiteMap
                             $xml[] = "    <xhtml:link rel=\"alternate\" hreflang=\"$alt_lang\" href=\"$urllink\"/>";
                         }
                     }
-                    $xml[] = "    <lastmod>".$ap->updated_at."</lastmod>";
+                    $xml[] = "    <lastmod>".date('c', strtotime($ap->updated_at))."</lastmod>";
                     $xml[] = "  </url>";
                 }
             } else {
@@ -57,7 +57,7 @@ class SiteMap
                 $xml[] = "    <loc>".url(preg_replace('#/+#','/', $def_lang.'/'.$mu->link))."</loc>";
                 $alt_mu = Article::where('position', 'menu-utama')->where('published', '1')->whereIn('lang', $alt_langs)->where('equal_id', $mu->equal_id)->select('id','title','link', 'slug', 'parent_id', 'equal_id', 'lang', 'updated_at')->get();
                 foreach ($alt_langs as $alt_lang) {
-                $altmu = $alt_mu->where('lang', $alt_lang)->first();
+                    $altmu = $alt_mu->where('lang', $alt_lang)->first();
                     if (!empty($altmu)) {
                         $urllink = url(preg_replace('#/+#','/', $alt_lang.'/'.$altmu->link.'/'.$altmu->slug));
                         $xml[] = "    <xhtml:link rel=\"alternate\" hreflang=\"$alt_lang\" href=\"$urllink\"/>";
@@ -66,23 +66,6 @@ class SiteMap
                 $xml[] = "    <lastmod>".$mu->updated_at."</lastmod>";
                 $xml[] = "  </url>";
 
-                if ($mu->link == \Lang::get('route.fasilitas',[], $def_lang)) {
-                    $allfacilities = Article::where('link', \Lang::get('route.fasilitas',[], $def_lang))->where('position', 'fasilitas')->where('published', '1')->where('lang', $def_lang)->get();
-                    foreach($allfacilities as $af) {
-                        $alt_af = Article::where('position', 'fasilitas')->where('published', '1')->whereIn('lang', $alt_langs)->where('equal_id', $af->equal_id)->select('id','title','link', 'slug', 'parent_id', 'equal_id', 'lang', 'updated_at')->get();
-                        $xml[] = "  <url>";
-                        $xml[] = "    <loc>".url(preg_replace('#/+#','/', $def_lang.'/'.$af->link.'/'.$af->slug))."</loc>";
-                        foreach ($alt_langs as $alt_lang) {
-                        $altaf = $alt_af->where('lang', $alt_lang)->first();
-                            if (!empty($altaf)) {
-                                $urllink = url(preg_replace('#/+#','/', $alt_lang.'/'.$altaf->link.'/'.$altaf->slug));
-                                $xml[] = "    <xhtml:link rel=\"alternate\" hreflang=\"$alt_lang\" href=\"$urllink\"/>";
-                            }
-                        }
-                        $xml[] = "    <lastmod>".$af->updated_at."</lastmod>";
-                        $xml[] = "  </url>";
-                    }
-                }
             }
         }
 
@@ -98,9 +81,9 @@ class SiteMap
     {
         $def_lang = config('app.default_locale');
         return Article::where('position', 'menu-utama')
-            ->where('published', '1')
-            ->where('lang', $def_lang)
-            ->select('id','title','link', 'slug', 'parent_id', 'equal_id', 'updated_at')
-            ->get();
+        ->where('published', '1')
+        ->where('lang', $def_lang)
+        ->select('id','title','link', 'slug', 'parent_id', 'equal_id', 'updated_at')
+        ->get();
     }
 }

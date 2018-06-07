@@ -33,7 +33,7 @@ class FProductController extends Controller
                 $altlink[$altlang] = '#';
             }
         }
-        $altlink = json_encode($altlink);
+        // $altlink = json_encode($altlink);
         return view('front.product', compact('category','product', 'allproduct', 'altlink'));
     }
 
@@ -56,7 +56,7 @@ class FProductController extends Controller
                 $altlink[$altlang] = '#';
             }
         }
-        $altlink = json_encode($altlink);
+        // $altlink = json_encode($altlink);
         return view('front.productdetail', compact('category','product','datailcategory','slideimage', 'productlainnya', 'altlink', 'headerimages'));
     }
 }

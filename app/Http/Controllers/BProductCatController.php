@@ -48,11 +48,12 @@ class BProductCatController extends Controller
             $rowRules = array_merge($rowRules, $langRules);
         }
         $this->validate($request, $rowRules);
-
         foreach ($alllangs as $lang) {
+            $slug = str_replace(' ','-',strtolower($request->{'category_'.$lang}));
             $data = [];
             $data['category'] = $request->{'category_'.$lang};
             $data['type'] = 'product';
+            $data['slug'] = $slug;
             $data['lang'] = $lang;
             $data['equal_id'] = $eqid;
             ${'category_'.$lang} = Category::create($data);
@@ -105,10 +106,11 @@ class BProductCatController extends Controller
             $rowRules = array_merge($rowRules, $langRules);
         }
         $this->validate($request, $rowRules);
-
         foreach ($alllangs as $lang) {
+            $slug = str_replace(' ','-',strtolower($request->{'category_'.$lang}));
             $data = [];
             $data['category'] = $request->{'category_'.$lang};
+            $data['slug'] = $slug;            
             $categories->where('lang', $lang)->first()->update($data);
         }
         \Session::flash('notification', ['level' => 'success', 'message' => 'Category '.$categories->where('lang', config('app.default_locale'))->first()->category. ' updated.']);
