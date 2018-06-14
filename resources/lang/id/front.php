@@ -1,34 +1,32 @@
 <?php
 
 return [
-    'p-latest' => 'koleksi-terbaru',
-    'p-vintage' => 'koleksi-vintage',
-    'p-explore' => 'jelajahi',
-    
-    'mi-choose' => 'interior-moderen',
-    'hf-choose' => 'kerajinan-furnitur',
-    'ci-choose' => 'interior-klasik',
-    'co-choose' => 'konsultasi',
 
-    'con-title' => 'Hubungan',
-    'con-subtitle' => 'Kami selalu di sini untuk mendengar dari Anda.',
-
-    'explore-all' => 'Jelajahi Semua',
-    'allproduct' => 'Semua Product',
-    'judul-produk' => 'Produk Herbal kami',
-    'sub-produk' => 'Temukan dan ketahui tentang produk terbaik kami',
     'produk-terkait' => 'Produk Terkait',
     'bahasa' => 'Bahasa',
 
-    'sh-contact' => 'Kirim Umpan Balik Anda',
+    'sh-contact' => 'Hubungan',
+    'sh-product' => 'Produk Herbal kami',
+    'sh-recommended' => 'Produk Disarankan',
+    'sh-form-contact' => 'Kirim Umpan Balik Anda',
     'sh-team' => 'Team Kreatif kami',
     'sh-buy' => 'Beli Sekarang !',
     'sh-fot-menu' => 'Informasi Bermanfaat',
     
-    'ct-dha' => 'kantor-dhaka',
-    'ct-aus' => 'kantor-austrilia',
-    'ct-eng' => 'kantor-england',
-    'ct-tel' => 'hubungi-kami',
+    'sub-contact' => 'Kami selalu di sini untuk mendengar dari Anda.',
+    'sub-product' => 'Temukan dan ketahui tentang produk terbaik kami',
+    'sub-recommended' => 'Kami menyarankan produk ini untuk anda',
+
+    'category' => 'Kategori',
+    'archive' => 'Arsip',   
+    'lastest' => 'Blog Terbaru',         
+    'share' => 'Bagikan artikel ini',
+    
+    'explore' => 'Jelajahi',
+    'allexplore' => 'Jelajahi Semua',
+    'allproduct' => 'Semua Product',
+    'show' => 'Tampilkan lebih banyak',
+    'learn' => 'Pelajari lebih lanjut',
 
     'ctf-name' => 'Nama Anda',
     'ctf-email' => 'Alamat Email Anda',

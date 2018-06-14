@@ -14,7 +14,7 @@
         <div class="container-fluid no-padding">
             <div class="row">
                 <?php
-                    $tel = $contactonpage->where('slug', \Lang::get('front.ct-tel',[], \App::getLocale()))->first();
+                    $tel = $contactonpage->where('slug', \Lang::get('slug.ct-tel',[], \App::getLocale()))->first();
                     ?>
 
                 <div class="col-md-6 col-sm-12">
@@ -41,7 +41,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-push-3 col-sm-12 text-center">
-                    <h2 class="section-heading">{{ \Lang::get('front.sh-contact',[], \App::getLocale()) }}</h2>
+                    <h2 class="section-heading">{{ \Lang::get('front.sh-form-contact',[], \App::getLocale()) }}</h2>
                 </div>
             </div>
             <div class="row">
@@ -80,9 +80,9 @@
         <div class="container">
             <div class="row">
                 <?php
-                    $dhaka = $contactonpage->where('slug', \Lang::get('front.ct-dha',[], \App::getLocale()))->first();
-                    $austrilia = $contactonpage->where('slug', \Lang::get('front.ct-aus',[], \App::getLocale()))->first();
-                    $england = $contactonpage->where('slug', \Lang::get('front.ct-eng',[], \App::getLocale()))->first();
+                    $dhaka = $contactonpage->where('slug', \Lang::get('slug.ct-dha',[], \App::getLocale()))->first();
+                    $austrilia = $contactonpage->where('slug', \Lang::get('slug.ct-aus',[], \App::getLocale()))->first();
+                    $england = $contactonpage->where('slug', \Lang::get('slug.ct-eng',[], \App::getLocale()))->first();
                     ?>
                 <div class="col-md-4 col-sm-6 col-sm-12">
                     <div class="location-content">

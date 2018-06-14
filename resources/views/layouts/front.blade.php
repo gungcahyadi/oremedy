@@ -34,7 +34,53 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/front/css/style-1.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/front/css/index-1.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/front/css/colors/default.css') }}">
-    @yield('custom-css')
+    <style type="text/css">
+    #chatbutton{
+        width: 60px;
+        height: 70px;
+        transition: 0.3s all ease-in-out;      
+        background-color: #99d24d;
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px; 
+        text-align: center;
+        padding: 15px;
+        line-height: 20px;
+        position: fixed;
+        bottom: 40vh;
+        right: 0;
+        cursor: pointer;
+        display: block;
+        color: #fff;
+        font-size: 20px; 
+        z-index: 9999;
+        overflow: hidden;
+    }
+    #chatbutton:hover{
+        width: 250px;
+    }
+    #chatbutton i{
+        font-size: 30px;
+    }
+    #chat{
+        position: absolute;
+        right: 5px;
+        margin: 0;
+        padding: 0;
+    }
+    #chat li{
+        float: right;
+        display: inline-block;
+        padding-left: 20px;
+        margin-bottom: 100px;
+    }
+    #chat img{
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+</style>
+@yield('custom-css')
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -121,15 +167,15 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="col-md-2 col-sm-12 footer-links">
+                <div class="col-md-2 col-sm-12 footer-links">        
                     <h4 class="link-title">{{ \Lang::get('front.bahasa',[], \App::getLocale()) }}</h4>
-                    <div class="lang_select">
-                        <div class="form-group">
-                            <label class="select">
-                                {!! Form::select('selectlang', []+config('app.human_langs'), null, ['id' => 'selectlang','class' => 'form-control']) !!}
-                            </label>
-                        </div>
-                    </div>
+                    <ul class="xtra-links">
+                        @foreach(config('app.all_langs') as $weblang)
+                        <li>
+                            <a href="{{ isset($altlink[$weblang]) ? $altlink[$weblang] : '#' }}">{{ config('app.human_langs')[$weblang] }}</a>
+                        </li>
+                        @endforeach
+                    </ul>                  
                 </div>
 
                 <div class="col-md-3 col-sm-12 footer-links">
@@ -171,27 +217,43 @@
     </footer>
     <!--FOOTER ends-->
 
+    <?php 
+    $wa = $contactonpage->where('slug', \Lang::get('slug.ct-wa',[], \App::getLocale()))->first();
+    $telp = $contactonpage->where('slug', \Lang::get('slug.ct-call',[], \App::getLocale()))->first();
+    $mail = $contactonpage->where('slug', \Lang::get('slug.ct-email',[], \App::getLocale()))->first();
+    $iconwa = $icon->where('type', 'icon')->where('article_id', $wa->id)->first();
+    $iconphone = $icon->where('type', 'icon')->where('article_id', $telp->id)->first();
+    $iconemail = $icon->where('type', 'icon')->where('article_id', $mail->id)->first();
+    ?>
 
-
-    <script src="{{ asset('assets/front/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/front/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/front/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('assets/front/js/wow.min.js') }}"></script>
-    <script src="{{ asset('assets/front/js/main.js') }}"></script>
-    @yield('custom-js')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#selectlang').val('{{ \App::getLocale() }}');
-            @if(isset($altlink))
-            var altlink = {!! json_encode($altlink); !!};
-            $('#selectlang').on('change', function(e) {
-                var lang = $('#selectlang').val();
-                if(lang !== '{{ \App::getLocale() }}') {
-                    window.location.href = altlink[lang];
-                }
+    <div id="chatbutton">
+        <ul id="chat">
+            <li><a href="{{$icon}}"></a><i class="fa fa-comments "></i></li>
+            <li><a target="_blank" href="intent://send/{{ (str_replace('+','',$wa->conten)) }}#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end
+                "><img src="{{ asset('assets/front/images/'.$iconwa->image) }}"></a></li>
+                <li><a target="_blank" href="tel:{{ $telp->conten }}"><img src="{{ asset('assets/front/images/'.$iconphone->image) }}"></a></li>
+                <li><a target="_blank" href="mailto:{{ $mail->conten }}"><img src="{{ asset('assets/front/images/'.$iconemail->image) }}"></a></li>
+            </ul>
+        </div>
+        <script src="{{ asset('assets/front/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('assets/front/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('assets/front/js/owl.carousel.min.js') }}"></script>
+        <script src="{{ asset('assets/front/js/wow.min.js') }}"></script>
+        <script src="{{ asset('assets/front/js/main.js') }}"></script>
+        @yield('custom-js')
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#selectlang').val('{{ \App::getLocale() }}');
+                @if(isset($altlink))
+                var altlink = {!! json_encode($altlink); !!};
+                $('#selectlang').on('change', function(e) {
+                    var lang = $('#selectlang').val();
+                    if(lang !== '{{ \App::getLocale() }}') {
+                        window.location.href = altlink[lang];
+                    }
+                });
+                @endif
             });
-            @endif
-        });
-    </script>
-</body>
-</html>
+        </script>
+    </body>
+    </html>

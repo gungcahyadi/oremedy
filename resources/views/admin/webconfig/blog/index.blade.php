@@ -115,7 +115,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="btn-group">
-                                    <a href="{{ route('config.catproduct.create') }}">
+                                    <a href="{{ route('config.catblog.create') }}">
                                         <button id="sample_editable_1_new" class="btn sbold green"> Add New
                                             <i class="fa fa-plus"></i>
                                         </button>
@@ -136,9 +136,9 @@
                             <tr>
                                 <td>{{ $category->category }}</td>
                                 <td class="text-center col-md-2 col-sm-3">
-                                    {!! Form::model($category, ['route' => ['config.catproduct.destroy', $category->equal_id], 'method' => 'delete', 'class' => 'form-inline'] ) !!}
+                                    {!! Form::model($category, ['route' => ['config.catblog.destroy', $category->equal_id], 'method' => 'delete', 'class' => 'form-inline'] ) !!}
                                     <span class="tooltips" data-original-title="Edit">
-                                            <a href="{{ route('config.catproduct.edit', $category->equal_id)}}" class="btn btn-icon-only blue"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ route('config.catblog.edit', $category->equal_id)}}" class="btn btn-icon-only blue"><i class="fa fa-edit"></i></a>
                                     </span>
                                     <span class="tooltips" data-original-title="Delete">
                                         {!! Form::button('<i class="fa fa-times"></i>', ['type' => 'submit', 'class'=>'btn btn btn-danger js-submit-confirm']) !!}
@@ -169,7 +169,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="btn-group">
-                                    <a href="{{ route('config.product.create') }}">
+                                    <a href="{{ route('config.blog.create') }}">
                                         <button id="sample_editable_1_new" class="btn sbold green"> Add New
                                             <i class="fa fa-plus"></i>
                                         </button>
@@ -184,35 +184,25 @@
                             <td>Name</td>
                             <td class="col-md-5">Short Description</td>
                             <td class="col-md-1">Published</td>
-                            <td class="col-md-1">Display</td>
-                            <td class="col-md-1">Recommended</td>
                             <td class="text-center col-md-2">#</td>
-                            <td class="text-center col-md-1">#</td>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($allproduct as $af)
+                        @foreach($allblog as $af)
                             <tr>
                                 <td>{{ $af->title }}</td>
                                 <td>{!! $af->short_description !!}</td>
                                 <td class="text-center">@if($af->published == '1') Yes @else No @endif</td>
-                                <td class="text-center">@if($af->display == '1') Yes @else No @endif</td>
-                                <td class="text-center">@if($af->recommended == '1') Yes @else No @endif</td>
                                 <td class="text-center col-md-2 col-sm-3">
-                                    {!! Form::model($af, ['route' => ['config.product.destroy', $af->equal_id], 'method' => 'delete', 'class' => 'form-inline'] ) !!}
+                                    {!! Form::model($af, ['route' => ['config.blog.destroy', $af->equal_id], 'method' => 'delete', 'class' => 'form-inline'] ) !!}
                                     <span class="tooltips" data-original-title="Edit">
-                                            <a href="{{ route('config.product.edit', $af->equal_id)}}" class="btn btn-icon-only blue"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ route('config.blog.edit', $af->equal_id)}}" class="btn btn-icon-only blue"><i class="fa fa-edit"></i></a>
                                     </span>
                                     <span class="tooltips" data-original-title="Delete">
                                         {!! Form::button('<i class="fa fa-times"></i>', ['type' => 'submit', 'class'=>'btn btn btn-danger js-submit-confirm']) !!}
                                     </span>
                                     {!! Form::close()!!}
-                                </td>
-                                <td class="text-center">
-                                    <span class="tooltips" data-original-title="Manage Header Image">
-                                        <a href="{{ route('config.productimage.index', $af->equal_id) }}" class="btn btn-icon-only purple-wisteria"><i class="fa fa-image"></i></a>
-                                    </span>
-                                </td>
+                                </td>                                
                             </tr>
                         @endforeach
                         </tbody>

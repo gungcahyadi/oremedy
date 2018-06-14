@@ -96,7 +96,7 @@
                     <h2 class="section-heading">{{ \Lang::get('front.produk-terkait',[], \App::getLocale()) }}</h2>
                 </div>
                 <div class="col-sm-4 col-xs-2 text-right">
-                    <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$product->link)) }}" class="btn btn-ghost hidden-xs">{{ \Lang::get('front.explore-all',[], \App::getLocale()) }}<i class="fa fa-chevron-right"></i></a>
+                    <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$product->link)) }}" class="btn btn-ghost hidden-xs">{{ \Lang::get('front.allexplore',[], \App::getLocale()) }}<i class="fa fa-chevron-right"></i></a>
                 </div>
             </div>
             <div class="row">

@@ -28,7 +28,7 @@
     <div class="container">
         <div class="row">
             <div class="product-filters col-sm-12">
-                <a class="filter btn" data-filter="all">All</a>
+                <a class="filter btn" data-filter="all">{{ \Lang::get('front.allproduct',[], \App::getLocale()) }}</a>
                 @foreach($category as $ct)
                 <a class="filter btn" data-filter="{{ '.'.$ct->slug }}">{{ $ct->category }}</a>
                 @endforeach

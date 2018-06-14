@@ -31,7 +31,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <a href="{{ route('config.product.index') }}"><span>{{ $article->title }}</span></a>
+            <a href="{{ route('config.blog.index') }}"><span>{{ $article->title }}</span></a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
@@ -39,7 +39,7 @@
         </li>
     </ul>
 </div>
-<h3 class="page-title"> New Product</h3>
+<h3 class="page-title"> New Blog</h3>
 @endsection
 
 @section('conten')
@@ -49,12 +49,12 @@
         <div class="portlet light bordered" id="form_wizard_1">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> New Product</span>
+                    <span class="caption-subject bold uppercase"> New Blog</span>
                 </div>
 
             </div>
             <div class="portlet-body form">
-                {!! Form::open(['route' => 'config.product.store', 'files' => true, 'class' => 'form-horizontal', 'id' => 'submit_form'])!!}
+                {!! Form::open(['route' => 'config.blog.store', 'files' => true, 'class' => 'form-horizontal', 'id' => 'submit_form'])!!}
                 <div class="form-wizard">
                     <div class="form-body">
                         <ul class="nav nav-pills nav-justified steps">
@@ -85,18 +85,11 @@
                                                 {!! Form::text('title_'.$lang, null, ['class'=>'form-control', 'required']) !!}
                                                 {!! $errors->first('title_'.$lang, '<p class="help-block">:message</p>') !!}
                                             </div>
-                                        </div>
-                                        <div class="form-group {!! $errors->has('price_'.$lang) ? 'has-error' : '' !!}">
-                                            {!! Form::label('price_'.$lang, 'Price', ['class' => 'control-label col-md-2']) !!}
-                                            <div class="col-md-10">
-                                                {!! Form::text('price_'.$lang, null, ['class'=>'form-control', 'required']) !!}
-                                                {!! $errors->first('price_'.$lang, '<p class="help-block">:message</p>') !!}
-                                            </div>
-                                        </div>
+                                        </div>                                       
                                         <div class="form-group {!! $errors->has('categories'.$lang) ? 'has-error' : '' !!}">
                                             {!! Form::label('categories'.$lang, 'Categories', ['class' => 'control-label col-md-2']) !!}
                                             <div class="col-md-10">
-                                                {!! Form::select('categories[]', []+App\Category::where('type', 'product')->where('lang', config('app.default_locale'))->pluck('category','id')->all(), null, ['class'=>'form-control select2-multiple', 'required', 'id' => 'select2-categories']) !!}
+                                                {!! Form::select('categories[]', []+App\Category::where('type', 'blog')->where('lang', config('app.default_locale'))->pluck('category','id')->all(), null, ['class'=>'form-control select2-multiple', 'required', 'id' => 'select2-categories']) !!}
                                                 {!! $errors->first('categories_'.$lang, '<p class="help-block">:message</p>') !!}
                                             </div>
                                         </div>
@@ -115,21 +108,7 @@
                                             </div>
                                         </div> 
 
-                                        @if($lang == config('app.default_locale'))
-                                        <div class="form-group {!! $errors->has('link_shopee') ? 'has-error' : '' !!}">
-                                            {!! Form::label('link_shopee', 'Link Shoppe', ['class' => 'control-label col-md-2']) !!}
-                                            <div class="col-md-10">
-                                                {!! Form::text('link_shopee', null, ['class'=>'form-control']) !!}
-                                                {!! $errors->first('link_shopee', '<p class="help-block">:message</p>') !!}
-                                            </div>
-                                        </div>
-                                        <div class="form-group {!! $errors->has('link_tokopedia') ? 'has-error' : '' !!}">
-                                            {!! Form::label('link_tokopedia', 'Link Tokopedia', ['class' => 'control-label col-md-2']) !!}
-                                            <div class="col-md-10">
-                                                {!! Form::text('link_tokopedia', null, ['class'=>'form-control']) !!}
-                                                {!! $errors->first('link_tokopedia', '<p class="help-block">:message</p>') !!}
-                                            </div>
-                                        </div>                                        
+                                        @if($lang == config('app.default_locale'))                              
                                         <div class="form-group {!! $errors->has('thumb_image') ? 'has-error' : '' !!}">
                                             {!! Form::label('thumb_image', 'Thumbnail Image (jpeg, png)', ['class' => 'control-label col-md-2']) !!}
                                             <div class="col-md-10">
@@ -180,27 +159,7 @@
                                                     </div>
                                                     {!! $errors->first('published', '<p class="help-block">:message</p>') !!}
                                                 </div>
-                                            </div>
-                                            <div class="form-group {!! $errors->has('display') ? 'has-error' : '' !!}" style="padding-bottom: 20px;">
-                                                {!! Form::label('display', 'Display in Homepage', ['class' => 'control-label col-md-2']) !!}
-                                                <div class="col-md-10">
-                                                    <div class="radio-list">
-                                                        <label class="radio-inline">{{ Form::radio('display', '1',false, ['required']) }} Yes</label>
-                                                        <label class="radio-inline">{{ Form::radio('display', '0',true, ['required']) }} No</label>
-                                                    </div>
-                                                    {!! $errors->first('display', '<p class="help-block">:message</p>') !!}
-                                                </div>
-                                            </div>
-                                            <div class="form-group {!! $errors->has('recommended') ? 'has-error' : '' !!}" style="padding-bottom: 20px;">
-                                                {!! Form::label('recommended', 'Recommended in Homepage', ['class' => 'control-label col-md-2']) !!}
-                                                <div class="col-md-10">
-                                                    <div class="radio-list">
-                                                        <label class="radio-inline">{{ Form::radio('recommended', '1',false, ['required']) }} Yes</label>
-                                                        <label class="radio-inline">{{ Form::radio('recommended', '0',true, ['required']) }} No</label>
-                                                    </div>
-                                                    {!! $errors->first('recommended', '<p class="help-block">:message</p>') !!}
-                                                </div>
-                                            </div>
+                                            </div>                                            
                                             @endif
                                         </div>
                                         @endforeach

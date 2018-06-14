@@ -14,10 +14,13 @@ class FIndexController extends Controller
         $homeslider = Images::where('type', 'home-slider')->where('lang', $lang)->get();
         $about = Article::where('link', \Lang::get('route.about',[], $lang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $lang)->firstOrFail();
         $whychoose = Article::where('position', 'why-choose')->where('published', '1')->where('lang', $lang)->first();
-        $contenwhychoose = $whychoose->childs()->where('position', 'page')->where('published', '1')->where('lang', $lang)->limit(4)->get();
+        $contenwhychoose = $about->childs()->where('position', 'page')->where('published', '1')->where('lang', $lang)->limit(4)->get();
         $contact = Article::where('link', \Lang::get('route.contact',[], $lang))->where('position', 'menu-utama')->where('published', '1')->where('lang', $lang)->firstOrFail();
-        $allproduct = Article::where('position', 'product')->where('published', '1')->where('lang', $lang)->orderBy('updated_at', 'desc')->where('display', '1')->get();
-        $onpage = Article::where('position', 'page')->where('lang', $lang)->first();
+        $contactonpage = $contact->childs()->where('position', 'page')->where('published', '1')->where('lang', $lang)->first();
+        $product = Article::where('position', 'product')->where('published', '1')->where('lang', $lang)->orderBy('updated_at', 'desc');
+        $allproduct = $product->where('display', '1')->get();
+        $recommended = $product->where('recommended', '1')->get();
+        $onpage = Article::where('position', 'page')->where('published', '1')->where('lang', $lang)->first();
         $alt_langs = array_diff(config('app.all_langs'), array($lang));
         $altlink = [];
         foreach ($alt_langs as $altlang) {
@@ -30,6 +33,6 @@ class FIndexController extends Controller
             }
         }
         // $altlink = json_encode($altlink);
-        return view('front.index', compact('home', 'altlink', 'homeslider', 'allproduct','onpage', 'about', 'whychoose','contenwhychoose','contact','contactimage', 'program', 'allprogram'));
+        return view('front.index', compact('home', 'altlink', 'homeslider', 'allproduct','recommended','onpage', 'about', 'video', 'whychoose','contenwhychoose','contact','contactimage', 'program', 'allprogram'));
     }
 }

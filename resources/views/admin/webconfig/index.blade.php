@@ -57,15 +57,14 @@
                                                 @elseif($mconfig['type'] == 'image')
                                                     <span class="tooltips" data-original-title="Image {{ $mconfig['tooltip'] }}">
                                                         <a href="{{ url('admin/config/'.$mconfig['link']) }}" class="btn btn-icon-only purple-wisteria"><i class="fa fa-image"></i></a>
-                                                    </span>                                                
+                                                    </span>
+                                                @elseif($mconfig['type'] == 'onpage')
+                                                    <span class="tooltips" data-original-title="Edit {{ $mconfig['tooltip'] }}">
+                                                        <a href="{{ url('admin/config/'.$mconfig['link']) }}">
+                                                        <a href="{{ url('admin/config/'.$mconfig['link']) }}" class="btn btn-icon-only yellow-gold"><i class="fa fa-pencil"></i></a>
+                                                    </span>                                              
                                                 @endif
                                             @endforeach
-                                        @endif
-
-                                        @if($menu->childs()->where('position', 'page')->where('lang', config('app.default_locale'))->count() > 0)
-                                            <span class="tooltips" data-original-title="Edit {{ $menuconfig[$menu->link][0]['tooltip'] }}">
-                                                <a href="{{ url('admin/config/'.$menuconfig[$menu->link][0]['link']) }}" class="btn btn-icon-only yellow-gold"><i class="fa fa-pencil"></i></a>
-                                            </span>
                                         @endif
                                     @endif
                                 </td>

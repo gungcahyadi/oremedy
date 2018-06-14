@@ -52,6 +52,7 @@
                                     <?php
                                     $contactonpage = $contacts->where('lang', $lang)->first()->childs()->where('position', 'page')->where('published', '1')->where('lang', $lang)->get();
                                     $ctoffice = $contactonpage->where('slug', \Lang::get('slug.ct-office',[], $lang))->first();
+                                    $ctwa = $contactonpage->where('slug', \Lang::get('slug.ct-wa',[], $lang))->first();
                                     $ctcall = $contactonpage->where('slug', \Lang::get('slug.ct-call',[], $lang))->first();
                                     $ctemail = $contactonpage->where('slug', \Lang::get('slug.ct-email',[], $lang))->first();
                                     ?>
@@ -60,6 +61,14 @@
                                             {!! Form::label('ctoffice', 'Office') !!}
                                             {!! Form::textarea('ctoffice', $ctoffice->conten, ['class'=>'form-control editor-textarea']) !!}
                                             {!! $errors->{$lang}->first('ctoffice', '<p class="help-block">:message</p>') !!}
+                                        </div>
+                                    @endif
+
+                                    @if(!empty($ctwa))
+                                        <div class="form-group {!! $errors->{$lang}->has('ctwa') ? 'has-error' : '' !!}">
+                                            {!! Form::label('ctwa', 'Whatsapp Us') !!}
+                                            {!! Form::textarea('ctwa', $ctwa->conten, ['class'=>'form-control editor-textarea']) !!}
+                                            {!! $errors->{$lang}->first('ctwa', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     @endif
 

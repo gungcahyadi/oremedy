@@ -17,6 +17,10 @@
             height: 10px;
             background-color:#9ec75d;
         }
+        .vid iframe{
+            width: 100%;
+            height: 350px;
+        }
     </style>
 @endsection
 @section('custom-js')
@@ -55,35 +59,36 @@
         </div>
     </header>
     <!--Text Banner ends-->
-    <?php
-        $lc = $onpage->where('slug', \Lang::get('front.p-latest',[], \App::getLocale()))->first();
-        $vc = $onpage->where('slug', \Lang::get('front.p-vintage',[], \App::getLocale()))->first();
-        $ep = $onpage->where('slug', \Lang::get('front.p-explore',[], \App::getLocale()))->first();
-        ?>
+
     <!-- promotions -->
     <section id="promotions">
         <div class="container">
             <div class="row">
+                <div class="col-sm-12 section-heading-wrap text-center">
+                    <h2 class="section-heading">{{ \Lang::get('front.sh-recommended',[], \App::getLocale()) }}</h2>
+                    <p>{{ \Lang::get('front.sub-recommended',[], \App::getLocale()) }}</p>
+                </div>
+                <?php $i=1; ?>
+                @foreach($recommended as $rcm)
                 <div class="col-sm-6 col-xs-12">
                     <figure class="wow fadeIn">
-                        <img class="img-responsive" src="{{ asset('assets/front/images/'.$lc->thumb_image) }}">
-                        <figcaption class="content">
-                            <h3 class="section-heading">{{ $lc->title }}</h3>
-                            <p>{{ $lc->conten }}</p>
-                            <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$lc->link)) }}" class="btn btn-outline">Explore  <i class="fa fa-chevron-right"></i></a>
+                        <div class="col-sm-6">
+                        <img class="img-responsive" src="{{ asset('assets/front/images/'.$rcm->thumb_image) }}">
+                        </div>
+                        <div class="col-sm-6">
+                        <figcaption style="position: relative;" class="content">
+                            <h3 class="section-heading">{{ $rcm->title }}</h3>
+                            <p>{!! $rcm->short_description !!}</p>
+                            <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$rcm->link.'/'.$rcm->slug)) }}" class="btn btn-outline">{{ \Lang::get('front.explore',[], \App::getLocale()) }}  <i class="fa fa-chevron-right"></i></a>
                         </figcaption>
+                        </div>
                     </figure>
                 </div>
-                <div class="col-sm-6 col-xs-12">
-                    <figure class="wow fadeIn">
-                        <img class="img-responsive" src="{{ asset('assets/front/images/'.$vc->thumb_image) }}">
-                        <figcaption class="content">
-                            <h3 class="section-heading">{{ $vc->title }}</h3>
-                            <p>{{ $vc->conten }}</p>
-                            <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$vc->link)) }}" class="btn btn-outline">Explore  <i class="fa fa-chevron-right"></i></a>
-                        </figcaption>
-                    </figure>
-                </div>
+                @if($i % 2 == 0)
+                <div class="clear"></div>
+                @endif
+                <?php $i++; ?>
+                @endforeach
             </div>
         </div>
     </section>
@@ -93,8 +98,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 section-heading-wrap text-center">
-                    <h2 class="section-heading">{{ \Lang::get('front.judul-produk',[], \App::getLocale()) }}</h2>
-                    <h4 class="section-subheading">{{ \Lang::get('front.sub-produk',[], \App::getLocale()) }}</h4>
+                    <h2 class="section-heading">{{ \Lang::get('front.sh-product',[], \App::getLocale()) }}</h2>
+                    <h4 class="section-subheading">{{ \Lang::get('front.sub-product',[], \App::getLocale()) }}</h4>
                 </div>
             </div>
             <div class="row">
@@ -125,6 +130,9 @@
         </div>
     </section>
     <!-- /Products -->
+        <?php
+        $ep = $onpage->where('slug', \Lang::get('slug.p-explore',[], \App::getLocale()))->first();
+        ?>
     <!-- cta-2 -->
     <section id="cta-2" style="background-image: url('{{ asset('assets/front/images/'.$ep->thumb_image) }}');">
         <div class="container">
@@ -132,7 +140,7 @@
                 <div class="col-sm-12 text-center">
                     <h2 class="section-heading">{{ $ep->title }}</h2>
                     <h4 class="section-subheading">{{ $ep->conten }}</h4>
-                    <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$ep->link)) }}" class="btn">Show More  <i class="fa fa-chevron-right"></i></a>
+                    <a href="{{ url(preg_replace('#/+#','/', config('app.locale_prefix').'/'.$ep->link)) }}" class="btn">{{ \Lang::get('front.show',[], \App::getLocale()) }} <i class="fa fa-chevron-right"></i></a>
                 </div>
             </div>
         </div>
@@ -143,15 +151,15 @@
         <div class="container-fluid no-padding">
             <div class="row">
                 <div class="col-md-6 col-md-push-6 col-sm-12 no-padding">
-                    <div class="section-img">
-                        <img class="img-responsive" src="{{ asset('assets/front/images/'.$about->thumb_image) }}" alt="{{ $about->title }}">
+                    <div class="section-content vid">
+                        <iframe width="560" height="315" src="{{ $about->link_video }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="col-md-6 col-md-pull-6 col-sm-12 no-padding">
                     <div class="section-content">
                         <h2 class="section-heading">{{ $about->title }}</h2>
                         <p>{!! $about->short_description !!}</p>
-                        <a href="{{ url('/'.config('app.locale_prefix')).'/'.$about->link }}" class="btn btn-outline">Learn More <i class="fa fa-chevron-right"></i></a>
+                        <a href="{{ url('/'.config('app.locale_prefix')).'/'.$about->link }}" class="btn btn-outline">{{ \Lang::get('front.learn',[], \App::getLocale()) }} <i class="fa fa-chevron-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -174,10 +182,10 @@
                         <h2 class="section-heading">{{ $whychoose->title }}</h2>
                         <h4 class="section-subheading">{{ $whychoose->conten }}</h4>
                         <?php
-                        $mi = $contenwhychoose->where('slug', \Lang::get('front.mi-choose',[], \App::getLocale()))->first();
-                        $hf = $contenwhychoose->where('slug', \Lang::get('front.hf-choose',[], \App::getLocale()))->first();
-                        $ci = $contenwhychoose->where('slug', \Lang::get('front.ci-choose',[], \App::getLocale()))->first();
-                        $co = $contenwhychoose->where('slug', \Lang::get('front.co-choose',[], \App::getLocale()))->first();
+                        $mi = $contenwhychoose->where('slug', \Lang::get('slug.mi-choose',[], \App::getLocale()))->first();
+                        $hf = $contenwhychoose->where('slug', \Lang::get('slug.hf-choose',[], \App::getLocale()))->first();
+                        $ci = $contenwhychoose->where('slug', \Lang::get('slug.ci-choose',[], \App::getLocale()))->first();
+                        $co = $contenwhychoose->where('slug', \Lang::get('slug.co-choose',[], \App::getLocale()))->first();
                         ?>
                         <div class="col-md-6 col-sm-12 no-padding">
                             <div class="col-sm-12 service-content">
@@ -220,8 +228,8 @@
             <div class="row">
                 <div class="col-lg-6 col-md-8 col-sm-12">
                     <div class="header-text">
-                        <h2 class="header-heading">{{ \Lang::get('front.con-title',[], \App::getLocale()) }}</h2>
-                        <p>{{ \Lang::get('front.con-subtitle',[], \App::getLocale()) }}</p>
+                        <h2 class="header-heading">{{ \Lang::get('front.sh-contact',[], \App::getLocale()) }}</h2>
+                        <p>{{ \Lang::get('front.sub-contact',[], \App::getLocale()) }}</p>
                         <a href="{{ url('/'.config('app.locale_prefix')).'/'.$contact->link }}" class="btn btn-outline btn-lg">Contact Us  <i class="fa fa-chevron-right"></i></a>
                     </div>
                 </div>

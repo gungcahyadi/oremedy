@@ -35,9 +35,11 @@ class BSocialController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $this->validate($request, [
             'platform' => 'required|in:'.implode(",", SocialLink::allowedPlatform()),
+            'icon' => 'sometimes|required',
+            'type' => 'required',
             'link' => 'required|url',
             'published' => 'required|in:1,0'
         ]);
@@ -84,10 +86,11 @@ class BSocialController extends Controller
 
         $this->validate($request, [
             'platform' => 'required|in:'.implode(",", SocialLink::allowedPlatform()),
+            'icon' => 'sometimes|required',
+            'type' => 'required',
             'link' => 'required|url',
             'published' => 'required|in:1,0'
         ]);
-
         $data = $request->all();
         $social->update($data);
         \Session::flash('notification', ['level' => 'success', 'message' => 'Social link form platform  '.$social->human_platform . ' updated.']);

@@ -66,6 +66,13 @@
                                         {!! Form::textarea('conten', null, ['class'=>'form-control editor-textarea']) !!}
                                         {!! $errors->{$lang}->first('conten', '<p class="help-block">:message</p>') !!}
                                     </div>
+                                    @if($article->where('lang', $lang)->first()->link == \Lang::get('route.about',[], $lang))
+                                    <div class="form-group {!! $errors->{$lang}->has('link_video') ? 'has-error' : '' !!}">
+                                        {!! Form::label('link_video', 'Link Video') !!}
+                                        {!! Form::text('link_video', null, ['class'=>'form-control']) !!}
+                                        {!! $errors->{$lang}->first('link_video', '<p class="help-block">:message</p>') !!}
+                                    </div>
+                                    @endif
                                     <div class="form-group {!! $errors->{$lang}->has('meta_title') ? 'has-error' : '' !!}">
                                         {!! Form::label('meta_title', 'Meta Title') !!}
                                         {!! Form::text('meta_title', null, ['class'=>'form-control']) !!}

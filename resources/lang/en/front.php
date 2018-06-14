@@ -1,34 +1,32 @@
 <?php
 
-return [
-    'p-latest' => 'latest-collections',
-    'p-vintage' => 'vintage-collections',
-    'p-explore' => 'explore',
+return [        
 
-    'mi-choose' => 'modern-interior',
-    'hf-choose' => 'handmade-furniture',
-    'ci-choose' => 'classic-interiors',
-    'co-choose' => 'consultancy',
-    
-    'con-title' => 'Get in Touch',
-    'con-subtitle' => 'We are always here to hear from you.',
-
-    'explore-all' => 'Explore All',
-    'allproduct' => 'All Product',
-    'judul-produk' => 'Our Herbal Product',
-    'sub-produk' => 'Find and know abour our best product',
     'produk-terkait' => 'Related Products',
     'bahasa' => 'Language',
 
-    'sh-contact' => 'Send Your Feedback',
+    'sh-contact' => 'Get in Touch',
+    'sh-product' => 'Our Herbal Product',
+    'sh-recommended' => 'Recommended Product',
+    'sh-form-contact' => 'Send Your Feedback',
     'sh-team' => 'Our Creative Mind',
     'sh-buy' => 'Buy Now !',
     'sh-fot-menu' => 'Useful Information',
-    
-    'ct-dha' => 'dhaka-office',
-    'ct-aus' => 'austrilia-office',
-    'ct-eng' => 'england-office',
-    'ct-tel' => 'call-us',
+
+    'sub-contact' => 'We are always here to hear from you.',
+    'sub-product' => 'Find and know abour our best product',
+    'sub-recommended' => 'We recommend this product for you',
+
+    'category' => 'Category',
+    'archive' => 'Archive',    
+    'lastest' => 'Lastest Blog',    
+    'share' => 'Share this post',
+
+    'allexplore' => 'Explore All',
+    'explore' => 'Explore',
+    'allproduct' => 'All Product',
+    'show' => 'Show More',
+    'learn' => 'learn More',
 
     'ctf-name' => 'Your Name',
     'ctf-email' => 'Your Email Address',

@@ -16,15 +16,15 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <a href="{{ route('config.product.index') }}"><span>{{ $article->title }}</span></a>
+            <a href="{{ route('config.blog.index') }}"><span>{{ $article->title }}</span></a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Edit Product</span>
+            <span>Edit Blog</span>
         </li>
     </ul>
 </div>
-<h3 class="page-title"> Edit Product</h3>
+<h3 class="page-title"> Edit Blog</h3>
 @endsection
 
 @section('conten')
@@ -34,7 +34,7 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <span class="caption-subject bold uppercase"> Edit Product</span>
+                    <span class="caption-subject bold uppercase"> Edit Blog</span>
                 </div>
 
             </div>
@@ -50,22 +50,17 @@
                     <div class="tab-content" style="padding: 30px;">
                         @foreach(config('app.all_langs') as $lang)
                         <div class="tab-pane fade @if($lang == config('app.default_locale')) active in @endif" id="{{ 'tab_'.$lang }}">
-                            {!! Form::model($product->where('lang', $lang)->first(), ['route' => ['config.product.update', $product->where('lang', $lang)->first()->equal_id],'method' =>'patch','files' => true])!!}
+                            {!! Form::model($blog->where('lang', $lang)->first(), ['route' => ['config.blog.update', $blog->where('lang', $lang)->first()->equal_id],'method' =>'patch','files' => true])!!}
                             {{ Form::hidden('lang', $lang) }}
                             <div class="form-group {!! $errors->{$lang}->has('title') ? 'has-error' : '' !!}">
                                 {!! Form::label('title', 'Title') !!}
                                 {!! Form::text('title', null, ['class'=>'form-control']) !!}
                                 {!! $errors->{$lang}->first('title', '<p class="help-block">:message</p>') !!}
-                            </div>
-                            <div class="form-group {!! $errors->{$lang}->has('price') ? 'has-error' : '' !!}">
-                                {!! Form::label('price', 'Price') !!}
-                                {!! Form::text('price', null, ['class'=>'form-control']) !!}
-                                {!! $errors->{$lang}->first('price', '<p class="help-block">:message</p>') !!}
-                            </div>
+                            </div>                        
                             @if($lang == config('app.default_locale'))
                             <div class="form-group {!! $errors->has('categories') ? 'has-error' : '' !!}">
                                 {!! Form::label('categories', 'Categories') !!}
-                                {!! Form::select('categories', []+App\Category::where('type', 'product')->where('lang', config('app.default_locale'))->pluck('category','id')->all(), null, ['class'=>'form-control']) !!}
+                                {!! Form::select('categories', []+App\Category::where('type', 'blog')->where('lang', config('app.default_locale'))->pluck('category','id')->all(), null, ['class'=>'form-control']) !!}
                                 {!! $errors->first('categories', '<p class="help-block">:message</p>') !!}
                             </div>
                             @endif                                    
@@ -79,27 +74,17 @@
                                 {!! Form::textarea('conten', null, ['class'=>'form-control editor-textarea']) !!}
                                 {!! $errors->{$lang}->first('conten', '<p class="help-block">:message</p>') !!}
                             </div>
-                            @if($lang == config('app.default_locale'))
-                            <div class="form-group {!! $errors->has('link_shopee') ? 'has-error' : '' !!}">
-                                {!! Form::label('link_shopee', 'Link Shoppe') !!}
-                                {!! Form::text('link_shopee', null, ['class'=>'form-control']) !!}
-                                {!! $errors->first('link_shopee', '<p class="help-block">:message</p>') !!}
-                            </div>
-                            <div class="form-group {!! $errors->has('link_tokopedia') ? 'has-error' : '' !!}">
-                                {!! Form::label('link_tokopedia', 'Link Tokopedia') !!}
-                                {!! Form::text('link_tokopedia', null, ['class'=>'form-control']) !!}
-                                {!! $errors->first('link_tokopedia', '<p class="help-block">:message</p>') !!}
-                            </div>
+                            @if($lang == config('app.default_locale'))          
                             <div class="form-group {!! $errors->{$lang}->has('thumb_image') ? 'has-error' : '' !!}">
                                 {!! Form::label('thumb_image', 'Thumbnail Image (jpeg, png)') !!}
                                 {!! Form::file('thumb_image') !!}
                                 {!! $errors->{$lang}->first('thumb_image', '<p class="help-block">:message</p>') !!}
-                                @if (!empty($product->where('lang', $lang)->first()) && $product->where('lang', $lang)->first()->thumb_image !== '')
+                                @if (!empty($blog->where('lang', $lang)->first()) && $blog->where('lang', $lang)->first()->thumb_image !== '')
                                 <div class="row" style="margin-top: 15px;">
                                     <div class="col-md-4">
                                         <p style="margin: 5px 0;">Current Thumbnail Image:</p>
                                         <div class="thumbnail">
-                                            <img src="{{ $product->where('lang', $lang)->first()->article_thumb_image }}" class="img-rounded">
+                                            <img src="{{ $blog->where('lang', $lang)->first()->article_thumb_image }}" class="img-rounded">
                                         </div>
                                     </div>
                                 </div>
@@ -129,27 +114,11 @@
                                     <label class="radio-inline">{{ Form::radio('published', '0',true) }} No</label>
                                 </div>
                                 {!! $errors->{$lang}->first('published', '<p class="help-block">:message</p>') !!}
-                            </div>
-                            <div class="col-sm-3 form-group {!! $errors->{$lang}->has('display') ? 'has-error' : '' !!}" style="padding-bottom: 20px;">
-                                {!! Form::label('display', 'Display in Homepage') !!}
-                                <div class="row col-md-12">
-                                    <label class="radio-inline">{{ Form::radio('display', '1',false) }} Yes</label>
-                                    <label class="radio-inline">{{ Form::radio('display', '0',true) }} No</label>
-                                </div>
-                                {!! $errors->{$lang}->first('display', '<p class="help-block">:message</p>') !!}
-                            </div>
-                            <div class="col-sm-3 form-group {!! $errors->{$lang}->has('recommended') ? 'has-error' : '' !!}" style="padding-bottom: 20px;">
-                                {!! Form::label('recommended', 'Recommended in Homepage') !!}
-                                <div class="row col-md-12">
-                                    <label class="radio-inline">{{ Form::radio('recommended', '1',false) }} Yes</label>
-                                    <label class="radio-inline">{{ Form::radio('recommended', '0',true) }} No</label>
-                                </div>
-                                {!! $errors->{$lang}->first('recommended', '<p class="help-block">:message</p>') !!}
-                            </div>
+                            </div>                            
                             @endif
                             <hr>
                             <div class="text-right">
-                                {!! Form::submit(empty($product->where('lang', $lang)->first()) ? 'Save' : 'Update', ['class'=>'btn btn-primary']) !!}
+                                {!! Form::submit(empty($blog->where('lang', $lang)->first()) ? 'Save' : 'Update', ['class'=>'btn btn-primary']) !!}
                             </div>
                             {!! Form::close() !!}
                         </div>
