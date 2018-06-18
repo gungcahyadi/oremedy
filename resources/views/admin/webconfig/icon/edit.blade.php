@@ -12,15 +12,15 @@
                 <i class="fa fa-circle"></i>
             </li>
             <li>
-                <a href="{{ route('config.icon.index') }}"><span>Team</span></a>
+                <a href="{{ route('config.icon.index') }}"><span>Icon</span></a>
                 <i class="fa fa-circle"></i>
             </li>
             <li>
-                <span>Edit Team</span>
+                <span>Edit Icon</span>
             </li>
         </ul>
     </div>
-    <h3 class="page-title"> Edit Team</h3>
+    <h3 class="page-title"> Edit Icon</h3>
 @endsection
 
 @section('conten')
@@ -30,7 +30,7 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
-                        <span class="caption-subject bold uppercase"> Edit Team</span>
+                        <span class="caption-subject bold uppercase"> Edit Icon</span>
                     </div>
                 </div>
                 <div class="portlet-body">
