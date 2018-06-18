@@ -36,10 +36,27 @@ class SiteMap
         $xml[] = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">';
 
         foreach ($menuUtama as $mu) {
-            if($mu->link == \Lang::get('route.product',[], $def_lang)) {
+            if($mu->link == \Lang::get('route.product',[], $def_lang)) {        
                 $allproduct = Article::where('link', \Lang::get('route.product',[], $def_lang))->where('position', 'product')->where('published', '1')->where('lang', $def_lang)->get();
                 foreach($allproduct as $ap) {
                     $alt_ap = Article::where('position', 'product')->where('published', '1')->whereIn('lang', $alt_langs)->where('equal_id', $ap->equal_id)->select('id','title','link', 'slug', 'parent_id', 'equal_id', 'lang', 'updated_at')->get();
+                    $xml[] = "  <url>";
+                    $xml[] = "    <loc>".url(preg_replace('#/+#','/', $def_lang.'/'.$ap->link.'/'.$ap->slug))."</loc>";
+                    foreach ($alt_langs as $alt_lang) {
+                        $altap = $alt_ap->where('lang', $alt_lang)->first();
+                        if (!empty($altap)) {
+                            $urllink = url(preg_replace('#/+#','/', $alt_lang.'/'.$altap->link.'/'.$altap->slug));
+                            $xml[] = "    <xhtml:link rel=\"alternate\" hreflang=\"$alt_lang\" href=\"$urllink\"/>";
+                        }
+                    }
+                    $xml[] = "    <lastmod>".date('c', strtotime($ap->updated_at))."</lastmod>";
+                    $xml[] = "  </url>";
+                }
+            }
+            elseif($mu->link == \Lang::get('route.blog',[], $def_lang)) {        
+                $allblog = Article::where('link', \Lang::get('route.blog',[], $def_lang))->where('position', 'blog')->where('published', '1')->where('lang', $def_lang)->get();
+                foreach($allblog as $ap) {
+                    $alt_ap = Article::where('position', 'blog')->where('published', '1')->whereIn('lang', $alt_langs)->where('equal_id', $ap->equal_id)->select('id','title','link', 'slug', 'parent_id', 'equal_id', 'lang', 'updated_at')->get();
                     $xml[] = "  <url>";
                     $xml[] = "    <loc>".url(preg_replace('#/+#','/', $def_lang.'/'.$ap->link.'/'.$ap->slug))."</loc>";
                     foreach ($alt_langs as $alt_lang) {
